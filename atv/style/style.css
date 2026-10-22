@@ -13,8 +13,9 @@ body {
     display: flex;
     justify-content: center;
     padding-top: 2rem;
-    width: 100vw;
-    height: 100vh;
+    padding-bottom: 2rem;
+    width: 100%;
+    height: 100%;
     background-color: beige;
 
     .wrap {
@@ -69,11 +70,24 @@ header {
 .grid-normal {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    padding: 0.5rem;
+
+    img {
+        display: flex;
+        align-self: center;
+        justify-self: center;
+    }
 }
 
 .grid-bigger-center {
     display: grid;
-    grid-template-columns: 1fr, 2fr, 1fr;
+    grid-template-columns: 1fr 2fr 1fr;
+
+    img {
+        display: flex;
+        align-self: center;
+        justify-self: center;
+    }
 }
 
 .grid-merge {
