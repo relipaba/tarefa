@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exemplo LocalStorage</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background-color: #f4f4f4;
+    }
+
+    .painel {
+      background: #ffffff;
+      padding: 24px;
+      max-width: 420px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .botoes {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    button {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-guardar {
+      background-color: #2e7d32;
+      color: #fff;
+    }
+
+    .btn-apagar {
+      background-color: #c62828;
+      color: #fff;
+    }
+
+    #resultado {
+      padding: 12px;
+      background: #f9f9f9;
+      border-left: 4px solid #1976d2;
+      font-size: 14px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="painel">
+    <h3>Registo de Preferências</h3>
+    
+    <input type="text" id="campoTexto" placeholder="Escreva o seu nome ou café favorito...">
+    
+    <div class="botoes">
+      <button class="btn-guardar" id="btnGuardar">Guardar</button>
+      <button class="btn-apagar" id="btnApagar">Apagar</button>
+    </div>
+
+    <div id="resultado">A carregar registo...</div>
+  </div>
+
+  <script>
+    const campoTexto = document.querySelector("#campoTexto");
+    const resultado = document.querySelector("#resultado");
+    const btnGuardar = document.querySelector("#btnGuardar");
+    const btnApagar = document.querySelector("#btnApagar");
+
+    const CHAVE_STORAGE = "cafe_preferencia_usuario";
+
+    // 1. LER: Executado ao abrir ou atualizar a página
+    function carregarDados() {
+      const valorGuardado = localStorage.getItem(CHAVE_STORAGE);
+
+      if (valorGuardado) {
+        resultado.innerText = `Valor guardado: ${valorGuardado}`;
+        campoTexto.value = valorGuardado;
+      } else {
+        resultado.innerText = "Nenhum dado guardado localmente.";
+      }
+    }
+
+    // 2. GUARDAR: Armazena o valor associado à chave
+    btnGuardar.addEventListener("click", () => {
+      const valor = campoTexto.value.trim();
+
+      if (!valor) {
+        alert("Introduza um valor antes de guardar.");
+        return;
+      }
+
+      localStorage.setItem(CHAVE_STORAGE, valor);
+      carregarDados();
+    });
+
+    // 3. APAGAR: Remove a chave do armazenamento local
+    btnApagar.addEventListener("click", () => {
+      localStorage.removeItem(CHAVE_STORAGE);
+      campoTexto.value = "";
+      carregarDados();
+    });
+
+    // Inicia a verificação ao carregar a página
+    carregarDados();
+  </script>
+
+</body>
+</html>

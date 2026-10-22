@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prática de JavaScript - Laboratório DOM</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      padding: 30px 15px;
+      line-height: 1.5;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    /* Cartões de Exercício */
+    .card {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .card h2 {
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 6px;
+    }
+
+    /* Elementos de Formulário */
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      max-width: 320px;
+      padding: 8px 10px;
+      margin: 6px 0;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      display: block;
+    }
+
+    button {
+      padding: 8px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      background-color: #1976d2;
+      color: white;
+      margin-top: 6px;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background-color: #1565c0;
+    }
+
+    button:disabled {
+      background-color: #bdbdbd;
+      cursor: not-allowed;
+    }
+
+    /* Estilos dos Módulos */
+    .destaque {
+      font-size: 15px;
+      margin: 4px 0;
+      padding: 4px;
+    }
+
+    .alerta {
+      background-color: #ffebee;
+      color: #c62828;
+      font-weight: bold;
+      border-radius: 4px;
+    }
+
+    .painel-faq {
+      display: none;
+      background: #fafafa;
+      border-left: 3px solid #1976d2;
+      padding: 10px;
+      margin-top: 5px;
+      font-size: 14px;
+      max-width: 400px;
+    }
+
+    ul#listaTarefas {
+      list-style: none;
+      margin-top: 10px;
+    }
+
+    ul#listaTarefas li {
+      padding: 6px 8px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+    }
+
+    ul#listaTarefas li:hover {
+      background-color: #f1f1f1;
+    }
+
+    .concluida {
+      text-decoration: line-through;
+      color: #888;
+    }
+
+    #fotoCarrossel {
+      width: 320px;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+
+    /* Modal */
+    #fundoModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: 10;
+    }
+
+    #caixaModal {
+      background: white;
+      width: 90%;
+      max-width: 350px;
+      margin: 15% auto;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Oficina Prática de JavaScript & DOM</h1>
+
+  <div class="container">
+
+    <!-- 1. SELEÇÃO DE ELEMENTOS -->
+    <section class="card">
+      <h2>1. Seleção no DOM (querySelector / querySelectorAll)</h2>
+      <p id="tituloExemplo">Texto que será alterado via ID ou Seletor</p>
+      <p class="destaque">Item A com classe destaque</p>
+      <p class="destaque">Item B com classe destaque</p>
+      
+      <button onclick="alterarPrimeiro()">Alterar 1º com querySelector</button>
+      <button onclick="alterarTodos()">Alterar Todos com querySelectorAll</button>
+    </section>
+
+    <!-- 2. VALIDAÇÃO SIMPLES -->
+    <section class="card">
+      <h2>2. Validação de Formulário</h2>
+      <input type="text" id="campoNome" placeholder="Digite seu nome">
+      <input type="password" id="campoSenha" placeholder="Senha (mínimo 6 dígitos)">
+      <button onclick="validarFormulario()">Enviar Cadastro</button>
+      <p id="msgValidacao" style="margin-top: 8px; font-weight: bold;"></p>
+    </section>
+
+    <!-- 3. ACCORDION / FAQ -->
+    <section class="card">
+      <h2>3. Menu Sanfona (Accordion)</h2>
+      <button id="btnFaq" onclick="alternarAccordion()">O que é o DOM? ▼</button>
+      <div id="painelFaq" class="painel-faq">
+        O DOM (Document Object Model) é a representação do HTML em forma de objetos para o JavaScript poder manipular.
+      </div>
+    </section>
+
+    <!-- 4. LISTA DE TAREFAS -->
+    <section class="card">
+      <h2>4. Lista de Tarefas (To-Do List)</h2>
+      <input type="text" id="novaTarefa" placeholder="Digite uma tarefa...">
+      <button onclick="adicionarTarefa()">Adicionar</button>
+      <button onclick="limparTarefas()" style="background-color: #757575;">Limpar</button>
+
+      <ul id="listaTarefas">
+        <!-- Tarefas adicionadas via JS aparecerão aqui -->
+      </ul>
+    </section>
+
+    <!-- 5. CARROSSEL DE IMAGENS -->
+    <section class="card">
+      <h2>5. Carrossel de Imagens</h2>
+      <img id="fotoCarrossel" src="https://picsum.photos/id/10/320/180" alt="Paisagem">
+      <p id="contadorCarrossel" style="font-size: 13px; margin-bottom: 6px;">Imagem 1 de 3</p>
+      <button onclick="navegarCarrossel(-1)">Anterior</button>
+      <button onclick="navegarCarrossel(1)">Próximo</button>
+    </section>
+
+    <!-- 6. JANELA MODAL -->
+    <section class="card">
+      <h2>6. Janela Modal</h2>
+      <button onclick="abrirModal()">Abrir Modal</button>
+    </section>
+
+  </div>
+
+  <!-- Estrutura Flutuante da Modal (Oculta por padrão) -->
+  <div id="fundoModal">
+    <div id="caixaModal">
+      <h3>Aviso Importante</h3>
+      <p style="margin: 12px 0;">Este é um exemplo de aviso suspenso em camada.</p>
+      <button onclick="fecharModal()" style="background-color: #d32f2f;">Fechar</button>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- ÁREA EXCLUSIVA DE TRABALHO DOS ALUNOS     -->
+  <!-- ========================================== -->
+  <script>
+
+    // ------------------------------------------
+    // EXERCÍCIO 1: SELETORES
+    // ------------------------------------------
+    function alterarPrimeiro() {
+      // TODO: Usar document.querySelector para capturar o primeiro elemento .destaque
+      // e mudar sua cor ou texto.
+    }
+
+    function alterarTodos() {
+      // TODO: Usar document.querySelectorAll(".destaque") e percorrer com forEach 
+      // adicionando a classe "alerta" (classList.add).
+    }
+
+
+    // ------------------------------------------
+    // EXERCÍCIO 2: VALIDAÇÃO
+    // ------------------------------------------
+    function validarFormulario() {
+      // TODO: Capturar o valor de 'campoNome' e 'campoSenha'
+      // TODO: Validar se o nome está vazio
+      // TODO: Validar se a senha tem menos de 6 dígitos (.length < 6)
+      // TODO: Exibir o resultado no elemento 'msgValidacao' (verde ou vermelho)
+    }
+
+
+    // ------------------------------------------
+    // EXERCÍCIO 3: ACCORDION
+    // ------------------------------------------
+    function alternarAccordion() {
+      // TODO: Capturar 'painelFaq'
+      // TODO: Se display for "block", mudar para "none". Se não, mudar para "block".
+    }
+
+
+    // ------------------------------------------
+    // EXERCÍCIO 4: TO-DO LIST
+    // ------------------------------------------
+    function adicionarTarefa() {
+      // TODO: Capturar o valor do input 'novaTarefa'
+      // TODO: Adicionar um <li> dentro de 'listaTarefas' usando innerHTML +=
+      // TODO: Limpar o campo de texto
+    }
+
+    function limparTarefas() {
+      // TODO: Limpar o innerHTML de 'listaTarefas'
+    }
+
+
+    // ------------------------------------------
+    // EXERCÍCIO 5: CARROSSEL
+    // ------------------------------------------
+    let fotos = [
+      "https://picsum.photos/id/10/320/180",
+      "https://picsum.photos/id/20/320/180",
+      "https://picsum.photos/id/30/320/180"
+    ];
+    let indiceAtual = 0;
+
+    function navegarCarrossel(direcao) {
+      // TODO: Somar direcao (+1 ou -1) à variável indiceAtual
+      // TODO: Checar limites circulares (se for menor que 0 ou maior que fotos.length - 1)
+      // TODO: Atualizar o src de 'fotoCarrossel' com fotos[indiceAtual]
+    }
+
+
+    // ------------------------------------------
+    // EXERCÍCIO 6: MODAL
+    // ------------------------------------------
+    function abrirModal() {
+      // TODO: Mudar o display de 'fundoModal' para "block"
+    }
+
+    function fecharModal() {
+      // TODO: Mudar o display de 'fundoModal' para "none"
+    }
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulário Semântico Completo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!--
+    TAG <form>: Container do formulário.
+    - action: Endereço do backend que receberá os dados.
+    - method="POST": Envia os dados protegidos no corpo da requisição (ideal para cadastros).
+  -->
+  <form action="/salvar-cadastro" method="POST" autocomplete="on">
+
+    <h2>Ficha de Inscrição Profissional</h2>
+    <p style="color: #4a5568; font-size: 14px;">
+      Campos com borda esquerda vermelha são obrigatórios.
+    </p>
+
+    <!-- ========================================================
+         SEÇÃO 1: IDENTIFICAÇÃO BÁSICA
+         ======================================================== -->
+    <fieldset>
+      <legend>1. Identificação Pessoal</legend>
+
+      <!-- Nome -->
+      <div class="form-group">
+        <!-- O atributo 'for' deve ser igual ao 'id' do input -->
+        <label for="campoNome">Nome Completo:</label>
+        <input type="text" id="campoNome" name="nome_completo" placeholder="Ex: Carlos Eduardo Lima" required 
+          minlength="3" autocomplete="name">
+      </div>
+
+      <!-- E-mail -->
+      <div class="form-group">
+        <label for="campoEmail">E-mail de Contato:</label>
+        <!-- type="email" já força a validação nativa de @ e provedor -->
+        <input type="email" id="campoEmail" name="email" placeholder="exemplo@dominio.com" required autocomplete="email" >
+      </div>
+
+      <!-- Senha -->
+      <div class="form-group">
+        <label for="campoSenha">Senha de Acesso:</label>
+        <input type="password" id="campoSenha" name="senha" required minlength="6" autocomplete="new-password">
+        <small id="regraSenha" style="color: #718096; margin-top: 4px;">Mínimo de 6 dígitos.</small>
+      </div>
+
+      <!-- Data de Nascimento -->
+      <div class="form-group">
+        <label for="campoData">Data de Nascimento:</label>
+        <input type="date" id="campoData" name="data_nascimento" required>
+      </div>
+    </fieldset>
+
+    <!-- ========================================================
+         SEÇÃO 2: PREFERÊNCIAS E SELEÇÃO ÚNICA (RADIO BUTTONS)
+         ======================================================== -->
+    <fieldset>
+      <legend>2. Modalidade de Trabalho (Escolha apenas 1)</legend>
+
+      <!--
+        REGRA DO RADIO:
+        Todos devem ter o MESMO 'name' ("regime") para funcionarem como grupo exclusivo.
+        O atributo 'value' define o valor que será enviado.
+      -->
+      <div class="form-group-inline">
+        <input type="radio" id="regimeRemoto" name="regime" value="remoto" checked>
+        <label for="regimeRemoto">Trabalho 100% Remoto</label>
+      </div>
+
+      <div class="form-group-inline">
+        <input type="radio" id="regimeHibrido" name="regime" value="hibrido">
+        <label for="regimeHibrido">Trabalho Híbrido</label>
+      </div>
+
+      <div class="form-group-inline">
+        <input type="radio" id="regimePresencial" name="regime" value="presencial">
+        <label for="regimePresencial">Trabalho Presencial</label>
+      </div>
+    </fieldset>
+
+    <!-- ========================================================
+         SEÇÃO 3: SELEÇÃO MÚLTIPLA (CHECKBOXES)
+         ======================================================== -->
+    <fieldset>
+      <legend>3. Habilidades e Interesses (Selecione quantos desejar)</legend>
+
+      <!--
+        REGRA DO CHECKBOX MÚLTIPLO:
+        O usuário pode selecionar nenhum, um ou vários ao mesmo tempo.
+      -->
+      <div class="form-group-inline">
+        <input type="checkbox" id="habilidadeFront" name="habilidades" value="frontend" checked>
+        <label for="skillFront">Front-end (HTML, CSS, JavaScript)</label>
+      </div>
+
+      <div class="form-group-inline">
+        <input type="checkbox" id="habilidadeBack" name="habilidades" value="backend">
+        <label for="skillBack">Back-end (Node.js, Python, Java)</label>
+      </div>
+
+      <div class="form-group-inline">
+        <input type="checkbox" id="habilidadeDesign" name="habilidades" value="ui_ux">
+        <label for="skillDesign">UI/UX Design e Prototipagem</label>
+      </div>
+
+      <div class="form-group-inline">
+        <input type="checkbox" id="habilidadeDados" name="habilidades" value="dados">
+        <label for="skillDados">Bancos de Dados e Análise</label>
+      </div>
+
+      <div class="form-group-inline">
+        <input type="checkbox" id="habilidadeMobile" name="habilidades" value="mobile">
+        <label for="skillMobile">Desenvolvimento Mobile</label>
+      </div>
+    </fieldset>
+
+    <!-- ========================================================
+         SEÇÃO 3: SELEÇÃO MÚLTIPLA (CHECKBOXES)
+         ======================================================== -->
+    <fieldset>
+      <legend>Áreas de interesse futuro na empresa</legend>
+      <label for="materia">Selecione a disciplina:</label>
+      <select id="materia">
+        <option value="Cibersegurança">Cibersegurança</option>
+        <option value="Teste_de_Software">Teste de Software</option>
+        <option value="Estatística_de_Dados">Estatística de Dados</option>
+        <option value="Full_Stack">Full Stack</option>
+      </select>
+    </fieldset>
+
+    <!-- ========================================================
+         SEÇÃO 4: RESUMO E TERMOS
+         ======================================================== -->
+    <fieldset>
+      <legend>4. Finalização</legend>
+
+      <!-- Campo Textarea para texto longo -->
+      <div class="form-group">
+        <label for="campoBio">Breve Apresentação (Opcional):</label>
+        <textarea id="campoBio" name="biografia" rows="3" placeholder="Fale um pouco sobre seus objetivos profissionais..."></textarea>
+      </div>
+
+      <!-- Checkbox de Newsletter (Opcional) -->
+      <div class="form-group-inline">
+        <input type="checkbox" id="chkNews" name="newsletter" value="sim">
+        <label for="chkNews">Quero receber avisos de vagas por e-mail.</label>
+      </div>
+
+      <!-- Checkbox de Termos (Obrigatório) -->
+      <div class="form-group-inline">
+        <!-- O 'required' impede o envio se este checkbox estiver desmarcado -->
+        <input type="checkbox" id="chkTermos" name="aceite_termos" value="aceito" required>
+        <label for="chkTermos">
+          Concordo com os <a href="#" target="_blank">Termos de Serviço</a> e Privacidade.
+        </label>
+      </div>
+    </fieldset>
+
+    <!-- Botões de Ação -->
+    <div class="acoes">
+      <button type="submit">Enviar Formulário</button>
+      <button type="reset">Limpar Dados</button>
+    </div>
+
+  </form>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Tarefas</title>
+  <style>
+    body { font-family: sans-serif; margin: 30px; }
+    input, button { padding: 8px; font-size: 15px; }
+    li { margin: 6px 0; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <h2>Minha Lista de Tarefas</h2>
+
+  <input type="text" id="tarefa" placeholder="Nova tarefa...">
+  <button onclick="adicionar()">Adicionar</button>
+
+  <ul id="lista"></ul>
+
+  <script>
+    const campo = document.querySelector("#tarefa");
+    const lista = document.querySelector("#lista");
+
+    function adicionar() {
+      const texto = campo.value.trim();
+
+      if (!texto) {
+        alert("Digite alguma tarefa válida!");
+        return;
+      }
+
+      // Criação segura de elementos via DOM
+      const item = document.createElement("li");
+      item.textContent = `${texto} X `;
+      
+      // Função tradicional em vez de arrow function
+      item.onclick = function() {
+        item.remove();
+      };
+
+      lista.appendChild(item);
+
+      campo.value = "";
+      campo.focus(); // Retorna o cursor para o campo de digitação
+    }
+
+    // Função tradicional no evento de tecla
+    campo.addEventListener("keydown", function(evento) {
+      if (evento.key === "Enter") {
+        adicionar();
+      }
+    });
+  </script>
+
+</body>
+</html>

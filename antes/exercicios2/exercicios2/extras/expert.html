@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aroma & Grão | Cafeteria Artesanal</title>
+  <style>
+    /* =========================================================
+       1. CONFIGURAÇÕES GERAIS (ESTRUTURA BASE 1)
+       ========================================================= */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #1a0f0a;
+      background-color: #4a0d0d;
+      transition: background-color 1.2s ease;
+      line-height: 1.6;
+    }
+
+    /* Menu de Navegação Fixo */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      background: rgba(18, 10, 8, 0.94);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
+      z-index: 1000;
+    }
+
+    nav {
+      max-width: 1100px;
+      height: 100%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 24px;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: #ffcc99;
+      cursor: pointer;
+      letter-spacing: -0.5px;
+    }
+
+    .menu-links {
+      display: flex;
+      list-style: none;
+      gap: 16px;
+    }
+
+    .menu-links button {
+      background: transparent;
+      border: none;
+      color: #f0e6df;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .menu-links button:hover {
+      color: #ff6b4a;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Tag Flutuante indicando a cor */
+    .tag-cor {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(18, 10, 8, 0.92);
+      padding: 10px 18px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffcc99;
+      border: 1px solid rgba(255, 204, 153, 0.3);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      z-index: 100;
+    }
+
+    /* Seções One-Page */
+    section {
+      min-height: 100vh;
+      padding: 25px 24px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .conteudo-secao {
+      max-width: 1000px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .titulo-secao {
+      font-size: 36px;
+      color: #ffffff;
+      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.6);
+      margin-bottom: 26px;
+      font-weight: 800;
+    }
+
+    .descricao {
+      color: #f5dfd5;
+      margin-bottom: 25px;
+      font-size: 16px;
+    }
+
+    /* Cartões Início e Sobre */
+    .card-destaque {
+      background: #ffffff;
+      padding: 45px 35px;
+      border-radius: 18px;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .card-destaque h1 {
+      font-size: 38px;
+      color: #2b0b0b;
+      margin-bottom: 16px;
+    }
+
+    .card-destaque p {
+      font-size: 18px;
+      color: #4a2820;
+      margin-bottom: 24px;
+    }
+
+    .btn-acao {
+      display: inline-block;
+      padding: 14px 30px;
+      background: #801313;
+      color: #ffffff;
+      font-weight: 700;
+      border: none;
+      border-radius: 30px;
+      box-shadow: 0 4px 14px rgba(128, 19, 19, 0.4);
+      cursor: pointer;
+      font-size: 15px;
+      transition: background-color 0.2s, transform 0.2s;
+    }
+
+    .btn-acao:hover {
+      background: #a81c1c;
+      transform: translateY(-2px);
+    }
+
+    .sobre-box {
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 18px;
+      text-align: left;
+      line-height: 1.8;
+      max-width: 750px;
+      margin: 0 auto;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+    }
+
+    /* Grid do Cardápio */
+    .cardapio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .item-cardapio {
+      background: #ffffff;
+      padding: 26px;
+      border-radius: 14px;
+      text-align: left;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+      border-top: 6px solid #801313;
+    }
+
+    .item-cardapio h3 {
+      font-size: 20px;
+      color: #2b0b0b;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .preco {
+      color: #a81c1c;
+      font-weight: 800;
+    }
+
+    /* =========================================================
+       2. RECURSOS INCORPORADOS DO CSS GRID (ESTRUTURA 2)
+       ========================================================= */
+
+    /* Legenda didática do Grid */
+    .legenda-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      color: #ffffff;
+      font-size: 14px;
+    }
+
+    .legenda-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .amostra-container {
+      width: 35px;
+      height: 20px;
+      border: 3px dashed #ffcc99;
+    }
+
+    .amostra-item {
+      width: 35px;
+      height: 20px;
+      border: 3px solid #801313;
+      background: #fff;
+    }
+
+    /* CONTAINER GRID DIDÁTICO */
+    .grid-demonstracao {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr; /* Três colunas iguais de 1 fração */
+      gap: 20px;
+      border: 4px dashed #ffcc99; /* Borda tracejada do container */
+      padding: 24px;
+      border-radius: 14px;
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    /* ITENS DO GRID */
+    .grid-item {
+      border: 3px solid #801313;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      min-height: 140px;
+      text-align: left;
+    }
+
+    .grid-item h3 {
+      color: #2b0b0b;
+      margin-bottom: 8px;
+    }
+
+    .grid-item p {
+      color: #555;
+      font-size: 14px;
+    }
+
+    .numero-grid {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 4px 8px;
+      background-color: #120a08;
+      color: #ffcc99;
+      font-size: 11px;
+      font-weight: bold;
+      border-radius: 4px;
+    }
+
+    /* Caixa de Investigação */
+    .caixa-investigacao {
+      margin-top: 25px;
+      padding: 22px;
+      border-left: 5px solid #ffcc99;
+      background-color: #ffffff;
+      border-radius: 0 10px 10px 0;
+      text-align: left;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .caixa-investigacao h3 {
+      color: #2b0b0b;
+      margin-bottom: 12px;
+    }
+
+    .caixa-investigacao ol {
+      padding-left: 20px;
+      color: #4a2820;
+    }
+
+    .caixa-investigacao li {
+      margin-bottom: 8px;
+    }
+
+    .caixa-investigacao code {
+      background-color: #f7e6df;
+      color: #801313;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    /* FORMULÁRIO COM CSS GRID (DUAS COLUNAS) */
+    .formulario-card {
+      background: #ffffff;
+      padding: 35px;
+      border-radius: 18px;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+      max-width: 750px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    #formInscricao {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Duas colunas */
+      gap: 20px;
+      border: 3px dashed #c9b0a3; /* Borda tracejada didática */
+      padding: 24px;
+      border-radius: 10px;
+    }
+
+    .campo {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      border: 1px solid #eee;
+      padding: 12px;
+      border-radius: 8px;
+      background: #faf8f7;
+    }
+
+    .campo-completo {
+      grid-column: span 2; /* Ocupa as 2 colunas do Grid */
+    }
+
+    label {
+      font-weight: bold;
+      font-size: 14px;
+      color: #2b0b0b;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      font-family: inherit;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #801313;
+      box-shadow: 0 0 0 2px rgba(128, 19, 19, 0.15);
+    }
+
+    /* Seção Contato */
+    .contato-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
+    }
+
+    .contato-card {
+      background: #ffffff;
+      padding: 32px;
+      border-radius: 14px;
+      flex: 1 1 300px;
+      max-width: 420px;
+      text-align: left;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .contato-card h3 {
+      color: #2b0b0b;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      background: #120a08;
+      font-size: 14px;
+      font-weight: 600;
+      color: #c9b0a3;
+    }
+
+    /* =========================================================
+       3. RESPONSIVIDADE
+       ========================================================= */
+    @media (max-width: 800px) {
+      .grid-demonstracao {
+        grid-template-columns: 1fr; /* Grid didático vira 1 coluna */
+      }
+
+      #formInscricao {
+        grid-template-columns: 1fr; /* Formulário vira 1 coluna */
+      }
+
+      .campo-completo {
+        grid-column: span 1;
+      }
+
+      .menu-links {
+        display: none; /* Simplificação visual em telas móveis */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Menu de Navegação Fixo -->
+  <header>
+    <nav>
+      <div class="logo" onclick="irParaSecao('inicio')">☕ Aroma & Grão</div>
+      <div class="menu-links">
+        <button type="button" onclick="irParaSecao('inicio')">Início</button>
+        <button type="button" onclick="irParaSecao('sobre')">História</button>
+        <button type="button" onclick="irParaSecao('cardapio')">Cardápio</button>
+        <button type="button" onclick="irParaSecao('laboratorio-grid')">Laboratório Grid</button>
+        <button type="button" onclick="irParaSecao('inscricao')">Workshop</button>
+        <button type="button" onclick="irParaSecao('contato')">Visite-nos</button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="tag-cor" id="indicadorCor">Fundo: Vinho Escuro</div>
+
+  <!-- Início -->
+  <section id="inicio" style="padding-top: 110px;">
+    <div class="conteudo-secao">
+      <div class="card-destaque">
+        <h1>Café Especial & Torra Intensa</h1>
+        <p>Grãos de altitude com notas pronunciadas de cacau denso, frutas vermelhas maduras e especiarias.</p>
+        <button class="btn-acao" onclick="irParaSecao('cardapio')">Explorar Cardápio</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- História -->
+  <section id="sobre">
+    <div class="conteudo-secao">
+      <h2 class="titulo-secao">Nossa História</h2>
+      <div class="sobre-box">
+        <p>A <strong>Aroma & Grão</strong> valoriza o processo lento e rigoroso das torras encorpadas e médias-escuras. Extraímos o máximo de doçura e intensidade dos frutos colhidos no ponto exato de maturação.</p>
+        <br>
+        <p>Criamos um ambiente acolhedor, aromático e imersivo, ideal para saborear cafés com personalidade forte e texturas aveludadas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cardápio -->
+  <section id="cardapio">
+    <div class="conteudo-secao">
+      <h2 class="titulo-secao">Seleção de Destaque</h2>
+      <div class="cardapio-grid">
+        <div class="item-cardapio">
+          <h3>Ristretto Intenso <span class="preco">R$ 9,00</span></h3>
+          <p>Extração curta, crema densa e notas concentradas de cacau 85% e avelã tostada.</p>
+        </div>
+
+        <div class="item-cardapio">
+          <h3>Cold Brew Bourbon <span class="preco">R$ 17,00</span></h3>
+          <p>Infusão a frio com grãos Bourbon Vermelho, finalizado com licor de cacau e casca de cereja.</p>
+        </div>
+
+        <div class="item-cardapio">
+          <h3>Prensa Francesa Encorpada <span class="preco">R$ 15,00</span></h3>
+          <p>Corpo pesado, óleos naturais preservados e perfil aromático de caramelo tostado e nozes.</p>
+        </div>
+
+        <div class="item-cardapio">
+          <h3>Mocha Dark Trufado <span class="preco">R$ 19,00</span></h3>
+          <p>Espresso duplo harmonizado com ganache caseiro de chocolate amargo e canela em pó.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO NOVO CSS GRID: Laboratório Didático Incorporado -->
+  <section id="laboratorio-grid">
+    <div class="conteudo-secao">
+      <h2 class="titulo-secao">Laboratório Visual de CSS Grid</h2>
+      <p class="descricao">
+        Demonstração de um container com seis itens distribuídos em três colunas iguais (<code>1fr 1fr 1fr</code>).
+      </p>
+
+      <!-- Legenda Visual -->
+      <div class="legenda-grid">
+        <div class="legenda-item">
+          <span class="amostra-container"></span>
+          <span>Borda tracejada = Container Grid</span>
+        </div>
+        <div class="legenda-item">
+          <span class="amostra-item"></span>
+          <span>Borda sólida = Item do Grid</span>
+        </div>
+      </div>
+
+      <!-- Container Grid de 3 Colunas -->
+      <div class="grid-demonstracao">
+        <article class="grid-item">
+          <span class="numero-grid">ITEM 1</span>
+          <h3>Espresso</h3>
+          <p>Coluna 1 da grade com fração 1fr.</p>
+        </article>
+
+        <article class="grid-item">
+          <span class="numero-grid">ITEM 2</span>
+          <h3>V60</h3>
+          <p>Coluna 2 da grade com fração 1fr.</p>
+        </article>
+
+        <article class="grid-item">
+          <span class="numero-grid">ITEM 3</span>
+          <h3>Aeropress</h3>
+          <p>Coluna 3 da grade com fração 1fr.</p>
+        </article>
+
+        <article class="grid-item">
+          <span class="numero-grid">ITEM 4</span>
+          <h3>Prensa Francesa</h3>
+          <p>Quebra automática para a segunda linha.</p>
+        </article>
+
+        <article class="grid-item">
+          <span class="numero-grid">ITEM 5</span>
+          <h3>Chemex</h3>
+          <p>Distribuição homogênea do espaço.</p>
+        </article>
+
+        <article class="grid-item">
+          <span class="numero-grid">ITEM 6</span>
+          <h3>Sifão</h3>
+          <p>Sexto item finalizando a matriz 3x2.</p>
+        </article>
+      </div>
+
+      <div class="caixa-investigacao">
+        <h3>Experimentos Rápidos no Código:</h3>
+        <ol>
+          <li>Altere <code>grid-template-columns: 1fr 1fr 1fr</code> para <code>1fr 1fr</code> e veja os itens ocuparem 2 colunas.</li>
+          <li>Experimente <code>grid-template-columns: 1fr 2fr 1fr</code> para ver a coluna central dobrar de largura.</li>
+          <li>Ajuste o espaçamento mudando <code>gap: 20px</code> para <code>gap: 40px</code> ou <code>gap: 5px</code>.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO FORMULÁRIO COM GRID: Workshop Barista -->
+  <section id="inscricao">
+    <div class="conteudo-secao">
+      <h2 class="titulo-secao">Inscrição no Workshop</h2>
+      <p class="descricao">
+        Formulário construído em CSS Grid de duas colunas, com campos em largura total usando <code>grid-column: span 2</code>.
+      </p>
+
+      <div class="formulario-card">
+        <form id="formInscricao" onsubmit="event.preventDefault(); alert('Inscrição registrada!');">
+          <div class="campo">
+            <label for="nome">Nome Completo:</label>
+            <input type="text" id="nome" placeholder="Digite seu nome" required>
+          </div>
+
+          <div class="campo">
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" placeholder="seuemail@exemplo.com" required>
+          </div>
+
+          <div class="campo">
+            <label for="metodo">Método de Interesse:</label>
+            <select id="metodo" required>
+              <option value="">Selecione...</option>
+              <option value="espresso">Espresso e Calibração de Moinho</option>
+              <option value="filtrados">Métodos Filtrados Manuais</option>
+              <option value="torra">Fundamentos de Torra</option>
+            </select>
+          </div>
+
+          <div class="campo">
+            <label for="nivel">Experiência Prévia:</label>
+            <select id="nivel" required>
+              <option value="iniciante">Entusiasta / Iniciante</option>
+              <option value="intermediario">Praticante Caseiro</option>
+              <option value="profissional">Barista Profissional</option>
+            </select>
+          </div>
+
+          <!-- Ocupa as 2 colunas do grid -->
+          <div class="campo campo-completo">
+            <label for="mensagem">O que você busca aprimorar?</label>
+            <textarea id="mensagem" rows="3" placeholder="Conte suas expectativas com a extração..."></textarea>
+          </div>
+
+          <div class="campo-completo" style="text-align: center; border: none; padding: 0; background: transparent;">
+            <button type="submit" class="btn-acao">Confirmar Vaga no Workshop</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contato -->
+  <section id="contato">
+    <div class="conteudo-secao">
+      <h2 class="titulo-secao">Visite Nosso Balcão</h2>
+      <div class="contato-wrapper">
+        <div class="contato-card">
+          <h3>Horário de Funcionamento</h3>
+          <br>
+          <p><strong>Segunda a Sexta:</strong> 07:00 às 20:30</p>
+          <p><strong>Finais de Semana:</strong> 08:00 às 20:00</p>
+        </div>
+
+        <div class="contato-card">
+          <h3>Localização</h3>
+          <br>
+          <p>📍 Rua dos Baristas, 320 - Bairro das Artes</p>
+          <p>📞 (11) 97123-4567</p>
+          <p>✉️ contato@aromaegrao.com</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Aroma & Grão Cafeteria. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    // 1. Função de rolagem com parada mais alta na tela (Normalizada e Corrigida)
+    function irParaSecao(idDaSecao) {
+      const elemento = document.querySelector("#" + idDaSecao);
+      if (!elemento) return;
+
+      const compensacaoTopo = 85;
+      const pontoInicial = window.pageYOffset || document.documentElement.scrollTop;
+      const pontoFinal = elemento.offsetTop - compensacaoTopo;
+      const distancia = pontoFinal - pontoInicial;
+      const duracao = 900;
+      let inicio = null;
+
+      function animar(tempoAtual) {
+        if (!inicio) inicio = tempoAtual;
+        const decorrido = tempoAtual - inicio;
+        const progresso = Math.min(decorrido / duracao, 1);
+
+        // Curva suave de aceleração e desaceleração
+        const curva = progresso < 0.5
+          ? 2 * progresso * progresso
+          : 1 - Math.pow(-2 * progresso + 2, 2) / 2;
+
+        window.scrollTo(0, pontoInicial + distancia * curva);
+
+        if (decorrido < duracao) {
+          window.requestAnimationFrame(animar);
+        }
+      }
+
+      window.requestAnimationFrame(animar);
+    }
+
+    // 2. Mudança dinâmica de cores ao rolar a página
+    const indicadorCor = document.querySelector("#indicadorCor");
+    let ultimaFaixa = 0;
+    const intervaloPixels = 260;
+
+    const tonsFortes = [
+      { nome: "Vermelho Rubi Escuro", cor: "hsl(0, 85%, 18%)" },
+      { nome: "Vinho Tinto Carmesim", cor: "hsl(350, 78%, 16%)" },
+      { nome: "Terracota Escura",     cor: "hsl(10, 82%, 20%)" },
+      { nome: "Café Torra Italiana",  cor: "hsl(20, 68%, 13%)" },
+      { nome: "Conhaque Profundo",    cor: "hsl(14, 75%, 22%)" },
+      { nome: "Mocha Queimado",       cor: "hsl(25, 70%, 14%)" },
+      { nome: "Chocolate 90%",        cor: "hsl(15, 60%, 10%)" }
+    ];
+
+    function atualizarCorAoRolar() {
+      const scrollAtual = window.pageYOffset || document.documentElement.scrollTop;
+      const faixaAtual = Math.floor(scrollAtual / intervaloPixels);
+
+      if (faixaAtual !== ultimaFaixa) {
+        ultimaFaixa = faixaAtual;
+        const indice = Math.floor(Math.random() * tonsFortes.length);
+        const tom = tonsFortes[indice];
+
+        document.body.style.backgroundColor = tom.cor;
+        if (indicadorCor) {
+          indicadorCor.innerText = "Fundo: " + tom.nome;
+        }
+      }
+    }
+
+    window.addEventListener("scroll", atualizarCorAoRolar);
+  </script>
+</body>
+</html>

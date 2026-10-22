@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Captura de Elementos no DOM</title>
+  <style>
+    body { font-family: sans-serif; margin: 30px; }
+    button { padding: 8px 12px; margin: 4px; cursor: pointer; }
+    .destaque { color: gray; font-size: 18px; }
+    .alerta { background-color: #ffebee; }
+  </style>
+</head>
+<body>
+
+  <h2>Métodos de Captura do DOM</h2>
+
+  <!-- Elemento único com ID -->
+  <p id="tituloPrincipal">Texto Original do Título</p>
+
+  <!-- Múltiplos elementos com a mesma classe -->
+  <p class="destaque">Item A com classe destaque</p>
+  <p class="destaque">Item B com classe destaque</p>
+  <p class="destaque">Item C com classe destaque</p>
+
+  <hr>
+
+  <!-- Botões de teste para cada método -->
+  <button onclick="testarGetById()">1. getElementById</button>
+  <button onclick="testarQuerySelector()">2. querySelector (primeiro)</button>
+  <button onclick="testarGetByClass()">3. getElementsByClassName</button>
+  <button onclick="testarQuerySelectorAll()">4. querySelectorAll (todos)</button>
+
+  <script>
+    // 1. Busca direta pelo ID (retorna 1 elemento)
+    function testarGetById() {
+      let elemento = document.getElementById("tituloPrincipal");
+      elemento.innerText = "Modificado via getElementById!";
+    }
+
+    // 2. Busca usando sintaxe CSS (retorna apenas o PRIMEIRO que encontrar)
+    function testarQuerySelector() {
+      // Usa . para classe (como no CSS) ou # para id
+      let primeiro = document.querySelector(".destaque");
+      primeiro.innerText = "Fui o primeiro capturado pelo querySelector!";
+      primeiro.style.color = "blue";
+    }
+
+    // 3. Busca clássica por classe (retorna uma lista de elementos: HTMLCollection)
+    function testarGetByClass() {
+      // Não usa ponto, passa apenas o nome da classe
+      let itens = document.getElementsByClassName("destaque");
+      
+      // Acessa pelo índice [0], [1], [2]
+      itens[1].innerText = "Modifiquei o segundo item via getElementsByClassName[1]!";
+      itens[1].style.color = "darkorange";
+    }
+
+    // 4. Busca moderna por lista (retorna uma NodeList)
+    function testarQuerySelectorAll() {
+      let todos = document.querySelectorAll(".destaque");
+
+      // Percorre todos os itens aplicando a alteração
+      todos.forEach(function(item) {
+        item.classList.add("alerta");
+        item.style.color = "red";
+      });
+    }
+  </script>
+
+</body>
+</html>

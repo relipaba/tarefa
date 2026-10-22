@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Validação Simples</title>
+  <style>
+    body { font-family: sans-serif; margin: 30px; }
+    input, button { padding: 8px; margin: 4px 0; display: block; font-size: 15px; }
+    #msg { font-weight: bold; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+  <form id="formulario">
+    <h2>Cadastro Simples</h2>
+    <fieldset>
+      <legend>Cadastro</legend>
+
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" placeholder="Digite seu nome">
+
+    <label for="senha">Senha:</label>
+    <input type="password" id="senha" placeholder="Mínimo 6 dígitos">
+
+    <button type="button" onclick="validar()">Enviar</button>
+
+    </fieldset>
+  </form>  
+  <p id="msg"></p>
+
+  <script>
+    function validar() {
+      let nome = document.getElementById("nome").value;
+      let senha = document.getElementById("senha").value;
+      let msg = document.getElementById("msg");
+
+      // 1. Campo nome vazio
+      if (nome === "") {
+        msg.innerText = "Preencha o campo nome!";
+        msg.style.color = "red";
+      } 
+      // 2. Senha curta
+      else if (senha.length < 6) {
+        msg.innerText = "A senha deve ter pelo menos 6 dígitos!";
+        msg.style.color = "red";
+      } 
+      // 3. Tudo correto
+      else {
+        msg.innerText = "Cadastrado com sucesso, " + nome + "!";
+        msg.style.color = "green";
+
+        // Limpeza de todos os campos em UMA ÚNICA LINHA:
+        document.getElementById("formulario").reset();
+      }
+    }
+  </script>
+
+</body>
+</html>

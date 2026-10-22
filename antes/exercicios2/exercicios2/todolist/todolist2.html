@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>To-Do List Simples</title>
+  <style>
+    body { font-family: sans-serif; margin: 30px; }
+    input, button { padding: 8px; font-size: 15px; }
+    li { margin: 8px 0; }
+  </style>
+</head>
+<body>
+
+  <h2>Minha Lista de Tarefas</h2>
+
+  <!-- Contador -->
+  <p><strong>Total de tarefas:</strong> <span id="contador">0</span></p>
+
+  <input type="text" id="tarefa" placeholder="Nova tarefa...">
+  <button onclick="adicionar()">Adicionar</button>
+  
+  <!-- Limpar Tudo -->
+  <button onclick="limparTudo()">Limpar Tudo</button>
+
+  <ul id="lista"></ul>
+
+  <script>
+    const campo = document.querySelector("#tarefa");
+    const lista = document.querySelector("#lista");
+    const contador = document.querySelector("#contador");
+
+    let totalTarefas = 0;
+
+    function adicionar() {
+      const texto = campo.value.trim();
+
+      if (texto === "") {
+        alert("Digite alguma tarefa!");
+        return;
+      }
+
+      const novoItem = document.createElement("li");
+      novoItem.innerText = texto;
+
+      lista.appendChild(novoItem);
+
+      totalTarefas++;
+      contador.innerText = totalTarefas;
+
+      campo.value = "";
+      campo.focus();
+    }
+
+    function limparTudo() {
+      lista.innerHTML = "";
+      totalTarefas = 0;
+      contador.innerText = 0;
+      campo.focus();
+    }
+  </script>
+
+</body>
+</html>

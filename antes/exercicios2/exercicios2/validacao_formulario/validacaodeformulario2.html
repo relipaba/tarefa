@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Desafio 1 - Validação Completa (Simplificado)</title>
+  <style>
+    body { font-family: sans-serif; margin: 30px; }
+    input, button { padding: 8px; margin: 4px 0; display: block; font-size: 15px; }
+    #msg { font-weight: bold; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+  <h2>Cadastro com Validação Completa</h2>
+
+  <!-- Envolvemos os campos em um form -->
+  <form id="formulario">
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" placeholder="Digite seu nome">
+
+    <label for="idade">Idade:</label>
+    <input type="number" id="idade" placeholder="Ex: 20">
+
+    <label for="senha">Senha:</label>
+    <input type="password" id="senha" placeholder="Mínimo 6 dígitos">
+
+    <label for="confirmaSenha">Confirme a Senha:</label>
+    <input type="password" id="confirmaSenha" placeholder="Repita a senha">
+
+    <!-- type="button" impede que o form recarregue a página ao clicar -->
+    <button type="button" onclick="validar()">Cadastrar</button>
+  </form>
+
+  <p id="msg"></p>
+
+  <script>
+    function validar() {
+      let nome = document.getElementById("nome").value.trim();
+      let idade = Number(document.getElementById("idade").value);
+      let senha = document.getElementById("senha").value;
+      let confirma = document.getElementById("confirmaSenha").value;
+      let msg = document.getElementById("msg");
+
+      if (nome === "") {
+        msg.innerText = "Preencha o campo nome!";
+        msg.style.color = "red";
+      } 
+      else if (idade < 18) {
+        msg.innerText = "Apenas maiores de 18 anos podem se cadastrar!";
+        msg.style.color = "red";
+      } 
+      else if (senha.length < 6) {
+        msg.innerText = "A senha deve ter pelo menos 6 dígitos!";
+        msg.style.color = "red";
+      } 
+      else if (senha !== confirma) {
+        msg.innerText = "As senhas não coincidem!";
+        msg.style.color = "red";
+      } 
+      else {
+        msg.innerText = "Cadastro realizado com sucesso, " + nome + "!";
+        msg.style.color = "green";
+
+        // Limpeza de todos os campos em UMA ÚNICA LINHA:
+        document.getElementById("formulario").reset();
+      }
+    }
+  </script>
+
+</body>
+</html>

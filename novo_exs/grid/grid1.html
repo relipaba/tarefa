@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercício CSS Grid - Frações</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      padding: 40px;
+    }
+
+    /* Contêiner principal da grade */
+    .painel-grid {
+      border: solid 2px #000000;
+      width: 100%;
+      max-width: 900px;
+      padding: 10px;
+      display: grid;
+      /* 3 colunas: 1 parte, 2 partes, 1 parte (total de 3 frações) */
+      grid-template-columns: 1fr 1fr 1fr;
+      /* Espaço entre as células */
+      gap: 16px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Estilo base para todos os cards */
+    .card {
+      padding: 32px 16px;
+      background-color: #c22525;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 600;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="painel-grid">
+    <div class="card">Lateral 1 (1fr)</div>
+    <div class="card">Centro (1fr)</div>
+    <div class="card">Lateral 2 (1fr)</div>
+    <div class="card">Lateral 1 (1fr)</div>
+    <div class="card">Centro (1fr)</div>
+    <div class="card">Lateral 2 (1fr)</div>
+  </div>
+
+</body>
+
+</html>

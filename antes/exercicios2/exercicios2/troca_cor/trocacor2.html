@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Trocar Cor de Fundo</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      padding: 2rem;
+      /* Transição suave ao trocar de cor */
+      transition: background-color 0.3s ease;
+      background-color: #f3f4f6;
+    }
+
+    section {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      max-width: 500px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.95rem;
+      background: #2563eb;
+      color: white;
+      margin-right: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+  </style>
+</head>
+<body>
+
+  <section>
+    <h2>1. Trocar cor de fundo</h2>
+    
+    <!-- Cores fixas definidas diretamente via inline onclick -->
+    <button onclick="document.body.style.backgroundColor='#ff0000'">Vermelho</button>
+    <button onclick="document.body.style.backgroundColor='#bfdbfe'">Azul</button>
+    <button onclick="document.body.style.backgroundColor='#bbf7d0'">Verde</button>
+    
+    <!-- Cor aleatória acionada via JavaScript -->
+    <button id="randomColorBtn">Cor aleatória</button>
+  </section>
+
+  <script>
+    // Gera 3 números aleatórios entre 0 e 255 (RGB) e aplica ao body
+    document.querySelector('#randomColorBtn').addEventListener('click', () => {
+      const r = Math.floor(Math.random() * 256);
+      const g = Math.floor(Math.random() * 256);
+      const b = Math.floor(Math.random() * 256);
+      
+      document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+    });
+  </script>
+
+</body>
+</html>

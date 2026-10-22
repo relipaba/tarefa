@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Grid com Template Areas</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      padding: 24px;
+      background-color: #f8fafc;
+    }
+
+    /* O mapa do layout fica centralizado no contêiner */
+    .layout {
+      display: grid;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      gap: 12px;
+      /* Definimos as larguras das 2 colunas */
+      grid-template-columns: 1fr 1fr;
+      /* Desenhamos as 3 linhas e onde cada elemento se posiciona */
+      grid-template-areas:
+        "topo     topo"
+        "menu     conteudo"
+        "rodape   rodape";
+    }
+
+    /* Mapeamento de cada classe para sua área na grade */
+    .cabeca  { grid-area: topo; }
+    .sidebar { grid-area: menu; }
+    .principal{ grid-area: conteudo; }
+    .base  { grid-area: rodape; }
+
+    /* Estilização básica dos blocos */
+    .bloco {
+      padding: 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .cabeca  { background-color: #3b82f6; color: #fff; }
+    .sidebar { background-color: #7c9cc6; color: #334155; }
+    .principal    { background-color: #8e8181; color: #0f172a; border: 1px solid #cbd5e1; min-height: 200px; }
+    .base  { background-color: #1e293b; color: #fff; }
+
+    .card {
+      padding: 32px 16px;
+      background-color: #c22525;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 600;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="layout">
+    <header class="bloco cabeca">Cabeçalho (topo)</header>
+    <div class="bloco sidebar">Menu Lateral (menu)</div>
+    <div class="bloco principal">Conteúdo Principal (conteudo)</div>
+    <footer class="bloco base">Rodapé (rodape)</footer>
+  </div>
+
+</body>
+</html>

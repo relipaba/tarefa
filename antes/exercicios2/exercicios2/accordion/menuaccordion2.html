@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>FAQ Simples</title>
+  <style>
+    body { font-family: sans-serif; margin: 30px; }
+    button { padding: 10px; width: 280px; font-size: 15px; cursor: pointer; text-align: left; margin-top: 10px; display: block; }
+    .painel { display: none; width: 260px; padding: 10px; background: #eee; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+
+  <h2>FAQ com Sanfona</h2>
+
+  <button id="btn1" onclick="alternar(1)">O que é o DOM? ▼</button>
+  <div id="painel1" class="painel">
+    O DOM é a representação do HTML em objetos manipuláveis pelo JS.
+  </div>
+
+  <button id="btn2" onclick="alternar(2)">O que é uma Função? ▼</button>
+  <div id="painel2" class="painel">
+    Uma função é um bloco de código reutilizável que executa uma tarefa.
+  </div>
+
+  <script>
+    function fecharTudo() {
+      // Fecha ambos os painéis e reseta os textos
+      document.querySelector("#painel1").style.display = "none";
+      document.querySelector("#painel2").style.display = "none";
+      document.querySelector("#btn1").innerText = "O que é o DOM? ▼";
+      document.querySelector("#btn2").innerText = "O que é uma Função? ▼";
+    }
+
+    function alternar(numero) {
+      let painel = document.querySelector("#painel" + numero);
+      let btn = document.querySelector("#btn" + numero);
+      let estavaAberto = (painel.style.display === "block");
+
+      // 1. Fecha tudo primeiro
+      fecharTudo();
+
+      // 2. Se não estava aberto, abre só o clicado
+      if (!estavaAberto) {
+        painel.style.display = "block";
+        btn.innerText = btn.innerText.replace("▼", "▲");
+      }
+    }
+  </script>
+
+</body>
+</html>

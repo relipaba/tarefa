@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Modo Claro / Escuro</title>
+  <style>
+    /* 1. Estado inicial (Modo Claro) */
+    body {
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      padding: 3rem;
+      background-color: #ffffff;
+      color: #111827;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* 2. Estado ativo (Modo Escuro) */
+    body.escuro {
+      background-color: #121212;
+      color: #f9fafb;
+    }
+
+    /* Estilos do botão */
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      background-color: #f3f4f6;
+      color: #111827;
+      transition: all 0.3s ease;
+    }
+
+    /* Estilo do botão quando o modo escuro está ativo */
+    body.escuro button {
+      background-color: #27272a;
+      color: #f9fafb;
+      border-color: #3f3f46;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Alternador de Tema</h2>
+  <p>Clique no botão abaixo para alternar entre os modos claro e escuro.</p>
+
+  <button id="btnTema" onclick="alternarTema()">🌙 Modo Escuro</button>
+
+  <script>
+    function alternarTema() {
+      // 1. Liga/desliga a classe "escuro" na tag <body>
+      document.body.classList.toggle("escuro");
+
+      // 2. Atualiza o texto e o ícone do botão conforme o tema ativo
+      let botao = document.querySelector("#btnTema");
+      if (document.body.classList.contains("escuro")) {
+        botao.innerText = "☀️ Modo Claro";
+      } else {
+        botao.innerText = "🌙 Modo Escuro";
+      }
+    }
+  </script>
+
+</body>
+</html>

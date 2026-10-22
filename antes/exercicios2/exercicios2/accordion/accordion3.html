@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Accordion</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 24px;
+      background-color: #f7f7f7;
+    }
+
+    .accordion-container {
+      max-width: 500px;
+      margin: 0 auto;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      background-color: #ffffff;
+    }
+
+    .accordion-item {
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .accordion-item:last-child {
+      border-bottom: none;
+    }
+
+    .accordion-btn {
+      width: 100%;
+      padding: 16px 20px;
+      background-color: #ffffff;
+      border: none;
+      text-align: left;
+      font-size: 16px;
+      font-weight: bold;
+      color: #333333;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.2s ease;
+    }
+
+    .accordion-btn:hover {
+      background-color: #f0f0f0;
+    }
+
+    .accordion-btn .icone {
+      font-size: 18px;
+      transition: transform 0.3s ease;
+    }
+
+    /* Conteúdo da gaveta */
+    .accordion-conteudo {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      background-color: #fafafa;
+    }
+
+    .accordion-conteudo p {
+      padding: 16px 20px;
+      margin: 0;
+      color: #666666;
+      line-height: 1.5;
+    }
+
+    /* Estado ativo da gaveta aberta */
+    .accordion-item.ativo .accordion-conteudo {
+      max-height: 150px; /* Altura suficiente para o texto */
+    }
+
+    .accordion-item.ativo .icone {
+      transform: rotate(45deg); /* Gira o sinal '+' para 'x' */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="accordion-container">
+    <!-- Gaveta 1 -->
+    <div class="accordion-item">
+      <button class="accordion-btn">
+        <span>Gaveta 1: Cafés Especiais</span>
+        <span class="icone">+</span>
+      </button>
+      <div class="accordion-conteudo">
+        <p>Grãos selecionados com torra fresca, notas florais e corpo aveludado.</p>
+      </div>
+    </div>
+
+    <!-- Gaveta 2 -->
+    <div class="accordion-item">
+      <button class="accordion-btn">
+        <span>Gaveta 2: Métodos de Extração</span>
+        <span class="icone">+</span>
+      </button>
+      <div class="accordion-conteudo">
+        <p>Preparos em Prensa Francesa, V60, Aeropress e Expresso tradicional.</p>
+      </div>
+    </div>
+
+    <!-- Gaveta 3 -->
+    <div class="accordion-item">
+      <button class="accordion-btn">
+        <span>Gaveta 3: Acompanhamentos</span>
+        <span class="icone">+</span>
+      </button>
+      <div class="accordion-conteudo">
+        <p>Pão de queijo caseiro quentinho, tartes artesanais e fatias de bolo.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const itens = document.querySelectorAll(".accordion-item");
+
+    itens.forEach((item) => {
+      const botao = item.querySelector(".accordion-btn");
+
+      botao.addEventListener("click", () => {
+        const jaAberto = item.classList.contains("ativo");
+
+        // Fecha todas as gavetas antes de abrir a selecionada
+        itens.forEach((outroItem) => {
+          outroItem.classList.remove("ativo");
+        });
+
+        // Alterna o estado da gaveta clicada
+        if (!jaAberto) {
+          item.classList.add("ativo");
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

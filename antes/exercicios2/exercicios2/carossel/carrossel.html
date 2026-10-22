@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Carrossel Simples</title>
+  <style>
+    body { font-family: sans-serif; margin: 30px; }
+    img { width: 300px; height: 180px; object-fit: cover; display: block; margin-bottom: 10px; border-radius: 4px; }
+    button { padding: 8px 14px; font-size: 15px; }
+  </style>
+</head>
+<body>
+
+  <h2>Carrossel de Imagens</h2>
+
+  <img id="foto" src="https://picsum.photos/id/10/300/180" alt="Paisagem">
+
+  <button onclick="mudar(-1)">Anterior</button>
+  <button onclick="mudar(1)">Próximo</button>
+
+  <script>
+    let fotos = [
+      "https://picsum.photos/id/10/300/180",
+      "https://picsum.photos/id/20/300/180",
+      "https://picsum.photos/id/30/300/180"
+    ];
+    let indice = 0;
+
+    function mudar(direcao) {
+      indice = indice + direcao;
+
+      // Volta ao início ou ao final se estourar os limites
+      if (indice >= fotos.length) indice = 0;
+      if (indice < 0) indice = fotos.length - 1;
+
+      document.getElementById("foto").src = fotos[indice];
+    }
+  </script>
+
+</body>
+</html>

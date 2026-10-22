@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Abas de Conteúdo Simples</title>
+  <style>
+    body { font-family: sans-serif; margin: 30px; }
+
+    /* Estilo dos botões das abas */
+    .botoes button {
+      padding: 10px 20px;
+      font-size: 15px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      background-color: #f1f1f1;
+    }
+
+    /* Estilo das caixas de conteúdo */
+    .conteudo {
+      display: none; /* Começam escondidas por padrão */
+      width: 320px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-top: none;
+      background: #fafafa;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Navegação por Abas</h2>
+
+  <!-- Botões que acionam a função passando o número da aba -->
+  <div class="botoes">
+    <button onclick="mostrarAba(1)">Sobre</button>
+    <button onclick="mostrarAba(2)">Serviços</button>
+    <button onclick="mostrarAba(3)">Contato</button>
+  </div>
+
+  <!-- Paineis de conteúdo: a primeira começa visível -->
+  <div id="aba1" class="conteudo">
+    <h3>Sobre Nós</h3>
+    <p>Somos uma empresa focada em soluções simples e eficientes.</p>
+  </div>
+
+  <div id="aba2" class="conteudo">
+    <h3>Nossos Serviços</h3>
+    <p>Desenvolvimento de websites, consultoria e design.</p>
+  </div>
+
+  <div id="aba3" class="conteudo">
+    <h3>Fale Conosco</h3>
+    <p>Envie um e-mail para: contato@exemplo.com</p>
+  </div>
+
+  <script>
+    // 1. Função auxiliar que esconde todas as abas
+    function esconderTodas() {
+      document.querySelector("#aba1").style.display = "none";
+      document.querySelector("#aba2").style.display = "none";
+      document.querySelector("#aba3").style.display = "none";
+    }
+
+    // 2. Função principal que recebe o número clicado
+    function mostrarAba(numero) {
+      // Primeiro esconde todas
+      esconderTodas();
+
+      // Depois exibe apenas a aba correspondente ao número recebido
+      let abaEscolhida = document.querySelector("#aba" + numero);
+      abaEscolhida.style.display = "block";
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+    /* Configurações visuais limpas para uso didático */
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.5;
+      padding: 24px;
+      max-width: 620px;
+      margin: 0 auto;
+      color: #2d3748;
+      background-color: #f7fafc;
+    }
+
+    form {
+      background-color: #ffffff;
+      padding: 24px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    fieldset {
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+    }
+
+    legend {
+      font-weight: bold;
+      padding: 0 8px;
+      color: #2b6cb0;
+    }
+
+    /* Agrupamento vertical tradicional (Label em cima, campo embaixo) */
+    .form-group {
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Agrupamento horizontal para Radio Buttons e Checkboxes */
+    .form-group-inline {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    label {
+      font-weight: 600;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    /* Labels dentro do agrupamento inline não precisam de negrito pesado */
+    .form-group-inline label {
+      font-weight: normal;
+      margin-bottom: 0;
+      cursor: pointer;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="date"],
+    select, 
+    textarea {
+      padding: 10px;
+      border: 1px solid #a0aec0;
+      border-radius: 4px;
+      font-size: 15px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* Destaque visual em campos obrigatórios */
+    input:required, select:required, textarea:required {
+      border-left: 4px solid #e53e3e;
+    }
+
+    /* Foco acessível */
+    input:focus, select:focus, textarea:focus {
+      outline: 2px solid #3182ce;
+      border-color: transparent;
+    }
+
+    .acoes {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 10px 22px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 4px;
+      cursor: pointer;
+      border: none;
+    }
+
+    button[type="submit"] {
+      background-color: #2b6cb0;
+      color: #ffffff;
+    }
+
+    button[type="reset"] {
+      background-color: #edf2f7;
+      color: #4a5568;
+    }

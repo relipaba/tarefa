@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>querySelector vs querySelectorAll</title>
+  <style>
+    body { font-family: sans-serif; margin: 30px; }
+    button { padding: 8px 14px; margin-right: 8px; cursor: pointer; }
+    .item { font-size: 18px; color: gray; margin: 6px 0; }
+  </style>
+</head>
+<body>
+
+  <h2>querySelector vs querySelectorAll</h2>
+
+  <!-- 3 elementos idênticos com a mesma classe -->
+  <p class="item">Item 1</p>
+  <p class="item">Item 2</p>
+  <p class="item">Item 3</p>
+
+  <hr>
+
+  <button onclick="mudarUm()">1. Alterar apenas o primeiro (querySelector)</button>
+  <button onclick="mudarTodos()">2. Alterar todos (querySelectorAll)</button>
+  <button onclick="resetar()">Resetar</button>
+
+  <script>
+    // 1. querySelector: pega apenas o PRIMEIRO que encontrar
+    function mudarUm() {
+      let primeiro = document.querySelector(".item");
+      primeiro.innerText = "Sou o primeiro (alterado pelo querySelector)";
+      primeiro.style.color = "blue";
+    }
+
+    // 2. querySelectorAll: pega a LISTA inteira com todos os elementos
+    function mudarTodos() {
+      let todos = document.querySelectorAll(".item");
+
+      // Percorre cada elemento da lista aplicando a alteração
+      todos.forEach(function(elemento) {
+        elemento.innerText = "Alterado em lote (pelo querySelectorAll)";
+        elemento.style.color = "red";
+      });
+    }
+
+    // Função auxiliar para restaurar o estado inicial
+    function resetar() {
+      let todos = document.querySelectorAll(".item");
+      todos.forEach(function(elemento, index) {
+        elemento.innerText = `Item ${index + 1}`;
+        elemento.style.color = "gray";
+      });
+    }
+  </script>
+
+</body>
+</html>

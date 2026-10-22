@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Café da Praça • Demonstração Moderna de UI & Interações JS</title>
+  <style>
+    /* ==========================================================================
+       1. SISTEMA DE DESIGN & CORES
+       ========================================================================== */
+    :root {
+      --bg-base: #120e0a;
+      --bg-card: rgba(36, 26, 19, 0.75);
+      --primary: #c9883c;
+      --primary-glow: rgba(201, 136, 60, 0.35);
+      --text: #f7ede2;
+      --text-muted: #bda391;
+      --border: rgba(201, 136, 60, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-base);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 250vh; /* Permite testar os efeitos disparados ao rolar a página */
+    }
+
+    /* ==========================================================================
+       TÉCNICA 1: VIEW TRANSITIONS API (Transições Fluidas de Estado)
+       ========================================================================== */
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation-duration: 0.5s;
+      animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Cabeçalho Sticky */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(18, 14, 10, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn-acao {
+      background: var(--primary);
+      color: #120e0a;
+      font-weight: 700;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    .btn-acao:hover {
+      background: #e2a053;
+      transform: scale(1.03);
+    }
+
+    /* Container Principal */
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 70px;
+    }
+
+    section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      position: relative;
+    }
+
+    h2 {
+      color: var(--primary);
+      margin-bottom: 12px;
+      font-size: 1.4rem;
+    }
+
+    p.descricao {
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      font-size: 0.95rem;
+    }
+
+    /* ==========================================================================
+       TÉCNICA 4: CANVAS FLUID MESH (Gradiente em Malha Contínuo)
+       ========================================================================== */
+    #meshCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 16px;
+      opacity: 0.25;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .conteudo-relativo {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ==========================================================================
+       TÉCNICA 6: 3D TILT COM SPOTLIGHT (Lanterna Reativa ao Cursor)
+       ========================================================================== */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      perspective: 1000px; /* Profundidade espacial */
+    }
+
+    .card-spotlight {
+      background: rgba(24, 18, 14, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: transform 0.15s ease-out, border-color 0.3s;
+      cursor: pointer;
+    }
+
+    .card-spotlight::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(
+        350px circle at var(--mouse-x, -500px) var(--mouse-y, -500px),
+        var(--primary-glow),
+        transparent 60%
+      );
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .card-spotlight:hover::before {
+      opacity: 1;
+    }
+
+    .card-spotlight h3 {
+      transform: translateZ(25px);
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .card-spotlight p {
+      transform: translateZ(15px);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* ==========================================================================
+       TÉCNICA 3: DRAG LIVRE COM INÉRCIA E AMORTECIMENTO (MANTÉM NO LUGAR)
+       ========================================================================== */
+    #dragContainer {
+      position: relative;
+      height: 340px;
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(0, 0, 0, 0.25);
+    }
+
+    .caixa-mola-livre {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      padding: 16px 24px;
+      background: #2a1f16;
+      border: 2px solid var(--primary);
+      border-radius: 10px;
+      font-weight: bold;
+      color: var(--primary);
+      user-select: none;
+      cursor: grab;
+      touch-action: none;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      will-change: transform;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .caixa-mola-livre:active {
+      cursor: grabbing;
+      box-shadow: 0 10px 25px rgba(201, 136, 60, 0.3);
+    }
+
+    /* ==========================================================================
+       TÉCNICA 2: REVELAÇÃO COM INTERSECTION OBSERVER
+       ========================================================================== */
+    .reveal-item {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-item.visivel {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. Cabeçalho com View Transitions -->
+  <header>
+    <div>
+      <strong>Café da Praça</strong> &bull; Interface Lab
+    </div>
+    <button id="btnAlternarTema" class="btn-acao">Alternar Modo Noturno</button>
+  </header>
+
+  <main>
+
+    <!-- 2. Spotlight 3D Tilt -->
+    <section>
+      <h2>1. 3D Card Tilt &amp; Spotlight Hover</h2>
+      <p class="descricao">
+        Passe o cursor sobre os cards. O JavaScript injeta as coordenadas do cursor em variáveis CSS nativas (<code>--mouse-x</code>, <code>--mouse-y</code>) e calcula rotação trigonométrica tridimensional.
+      </p>
+
+      <div class="cards-grid">
+        <article class="card-spotlight">
+          <h3>Grãos Bourbon Amarelo</h3>
+          <p>Torra média-clara com notas de caramelo tostado e baixa acidez.</p>
+        </article>
+
+        <article class="card-spotlight">
+          <h3>Prensa Francesa</h3>
+          <p>Infusão por imersão total com preservação integral dos óleos essenciais.</p>
+        </article>
+
+        <article class="card-spotlight">
+          <h3>Torta de Cacau 70%</h3>
+          <p>Receita clássica com chocolate artesanal da serra paranaense.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 3. Arraste Livre com Inércia (Mantém onde soltou) -->
+    <section>
+      <h2>2. Microinteração: Drag Livre com Inércia &amp; Fixação</h2>
+      <p class="descricao">
+        Arraste a comanda para qualquer lugar dentro da área. Ao soltar, a física aplica inércia e amortecimento elástico de assentamento, e o card <strong>permanece exatamente no local solto</strong>.
+      </p>
+
+      <div id="dragContainer">
+        <div id="springBoxLivre" class="caixa-mola-livre">
+          ☕ Mesa 04: 2x Cappuccinos &amp; 1x Pão de Queijo
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Fluid Mesh Gradient no Canvas -->
+    <section>
+      <canvas id="meshCanvas"></canvas>
+      <div class="conteudo-relativo">
+        <h2>3. Fluid Mesh Gradient via Canvas 2D</h2>
+        <p class="descricao">
+          Gradiente contínuo com ciclo trigonométrico via <code>requestAnimationFrame</code>. Roda liso a 60fps na GPU, conferindo ambientação visual e textura viva à seção.
+        </p>
+        <p style="color: var(--text);">
+          Usado para destacar áreas nobres sem recorrer a vídeos pesados ou bibliotecas externas.
+        </p>
+      </div>
+    </section>
+
+    <!-- 5. Web Animations API (WAAPI) -->
+    <section>
+      <h2>4. Web Animations API (WAAPI)</h2>
+      <p class="descricao">
+        Controle declarativo e assíncrono de animação direto na thread de composição do navegador com suporte a promessas.
+      </p>
+
+      <button id="btnWaapi" class="btn-acao">Disparar Extração WAAPI</button>
+      <div id="boxWaapi" style="width: 70px; height: 70px; background: var(--primary); border-radius: 12px; margin-top: 20px;"></div>
+    </section>
+
+    <!-- 6. Intersection Observer Reveal -->
+    <section class="reveal-item">
+      <h2>5. Revelação com Intersection Observer</h2>
+      <p class="descricao">
+        Detecção de visibilidade sem acoplar ouvintes ao scroll da janela. Economiza CPU e bateria, disparando a entrada apenas quando o elemento entra na área visível da tela.
+      </p>
+      <p style="color: var(--text);">
+        Padrão ideal para substituir bibliotecas pesadas de animação de scroll em websites onepage modernos.
+      </p>
+    </section>
+
+  </main>
+
+  <script>
+    /* ==========================================================================
+       1. VIEW TRANSITIONS API
+       ========================================================================== */
+    const btnTema = document.querySelector("#btnAlternarTema");
+    let modoAlternativo = false;
+
+    btnTema.addEventListener("click", () => {
+      if (!document.startViewTransition) {
+        alternarTema();
+        return;
+      }
+      document.startViewTransition(() => {
+        alternarTema();
+      });
+    });
+
+    function alternarTema() {
+      modoAlternativo = !modoAlternativo;
+      if (modoAlternativo) {
+        document.documentElement.style.setProperty("--bg-base", "#080605");
+        document.documentElement.style.setProperty("--primary", "#e69c24");
+      } else {
+        document.documentElement.style.setProperty("--bg-base", "#120e0a");
+        document.documentElement.style.setProperty("--primary", "#c9883c");
+      }
+    }
+
+    /* ==========================================================================
+       2. SPOTLIGHT RADIAL + 3D TILT
+       ========================================================================== */
+    const cards = document.querySelectorAll(".card-spotlight");
+
+    cards.forEach((card) => {
+      card.addEventListener("mousemove", (e) => {
+        const retangulo = card.getBoundingClientRect();
+        const x = e.clientX - retangulo.left;
+        const y = e.clientY - retangulo.top;
+
+        card.style.setProperty("--mouse-x", `${x}px`);
+        card.style.setProperty("--mouse-y", `${y}px`);
+
+        const centroX = retangulo.width / 2;
+        const centroY = retangulo.height / 2;
+        const rotacionarX = ((y - centroY) / centroY) * -8;
+        const rotacionarY = ((x - centroX) / centroX) * 8;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotacionarX}deg) rotateY(${rotacionarY}deg)`;
+      });
+
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg)";
+        card.style.removeProperty("--mouse-x");
+        card.style.removeProperty("--mouse-y");
+      });
+    });
+
+    /* ==========================================================================
+       3. DRAG LIVRE COM INÉRCIA E FIXAÇÃO PERMANENTE (EIXOS X & Y)
+       ========================================================================== */
+    const boxLivre = document.querySelector("#springBoxLivre");
+    let posX = 0;
+    let posY = 0;
+    let inicioX = 0;
+    let inicioY = 0;
+    let ultimoX = 0;
+    let ultimoY = 0;
+    let velX = 0;
+    let velY = 0;
+    let animacaoId = null;
+    let arrastando = false;
+
+    boxLivre.addEventListener("pointerdown", (e) => {
+      arrastando = true;
+      boxLivre.setPointerCapture(e.pointerId);
+
+      if (animacaoId) cancelAnimationFrame(animacaoId);
+
+      inicioX = e.clientX - posX;
+      inicioY = e.clientY - posY;
+      ultimoX = e.clientX;
+      ultimoY = e.clientY;
+      velX = 0;
+      velY = 0;
+
+      // Leve elevação elástica enquanto segura
+      boxLivre.style.transform = `translate3d(${posX}px, ${posY}px, 0) scale(1.05)`;
+    });
+
+    boxLivre.addEventListener("pointermove", (e) => {
+      if (!arrastando) return;
+
+      velX = e.clientX - ultimoX;
+      velY = e.clientY - ultimoY;
+      ultimoX = e.clientX;
+      ultimoY = e.clientY;
+
+      posX = e.clientX - inicioX;
+      posY = e.clientY - inicioY;
+
+      boxLivre.style.transform = `translate3d(${posX}px, ${posY}px, 0) scale(1.05)`;
+    });
+
+    boxLivre.addEventListener("pointerup", () => {
+      if (!arrastando) return;
+      arrastando = false;
+      aplicarInerciaEParada();
+    });
+
+    function aplicarInerciaEParada() {
+      const atrito = 0.88; // Desaceleração progressiva suave
+      let escala = 1.05;
+
+      function passo() {
+        velX *= atrito;
+        velY *= atrito;
+
+        posX += velX;
+        posY += velY;
+
+        // Efeito de mola trazendo o card de volta à escala plana de repouso (1.0)
+        escala += (1.0 - escala) * 0.2;
+
+        boxLivre.style.transform = `translate3d(${posX}px, ${posY}px, 0) scale(${escala})`;
+
+        if (Math.abs(velX) > 0.1 || Math.abs(velY) > 0.1 || Math.abs(escala - 1) > 0.01) {
+          animacaoId = requestAnimationFrame(passo);
+        } else {
+          // Fixa definitivamente no local em repouso
+          boxLivre.style.transform = `translate3d(${posX}px, ${posY}px, 0) scale(1)`;
+          animacaoId = null;
+        }
+      }
+
+      animacaoId = requestAnimationFrame(passo);
+    }
+
+    /* ==========================================================================
+       4. FLUID MESH GRADIENT NO CANVAS
+       ========================================================================== */
+    const canvas = document.querySelector("#meshCanvas");
+    const ctx = canvas.getContext("2d");
+    let passo = 0;
+
+    function redimensionarCanvas() {
+      canvas.width = canvas.parentElement.offsetWidth;
+      canvas.height = canvas.parentElement.offsetHeight;
+    }
+    window.addEventListener("resize", redimensionarCanvas);
+    redimensionarCanvas();
+
+    function renderizarGradiente() {
+      passo += 0.015;
+      const w = canvas.width;
+      const h = canvas.height;
+
+      ctx.clearRect(0, 0, w, h);
+
+      const gradiente = ctx.createRadialGradient(
+        w / 2 + Math.sin(passo) * 120,
+        h / 2 + Math.cos(passo) * 50,
+        20,
+        w / 2,
+        h / 2,
+        w * 0.7
+      );
+
+      gradiente.addColorStop(0, "rgba(201, 136, 60, 0.7)");
+      gradiente.addColorStop(0.5, "rgba(117, 77, 16, 0.3)");
+      gradiente.addColorStop(1, "rgba(18, 14, 10, 0)");
+
+      ctx.fillStyle = gradiente;
+      ctx.fillRect(0, 0, w, h);
+
+      requestAnimationFrame(renderizarGradiente);
+    }
+    requestAnimationFrame(renderizarGradiente);
+
+    /* ==========================================================================
+       5. WEB ANIMATIONS API (WAAPI)
+       ========================================================================== */
+    const btnWaapi = document.querySelector("#btnWaapi");
+    const boxWaapi = document.querySelector("#boxWaapi");
+
+    btnWaapi.addEventListener("click", () => {
+      const animacao = boxWaapi.animate(
+        [
+          { transform: "translateX(0px) rotate(0deg) scale(1)", background: "var(--primary)" },
+          { transform: "translateX(180px) rotate(180deg) scale(1.2)", background: "#e2a053", offset: 0.5 },
+          { transform: "translateX(0px) rotate(360deg) scale(1)", background: "var(--primary)" }
+        ],
+        {
+          duration: 900,
+          easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+          fill: "forwards"
+        }
+      );
+
+      animacao.finished.then(() => {
+        console.log("Animação WAAPI finalizada com aceleração por hardware.");
+      });
+    });
+
+    /* ==========================================================================
+       6. INTERSECTION OBSERVER REVEAL
+       ========================================================================== */
+    const itensReveal = document.querySelectorAll(".reveal-item");
+
+    const observador = new IntersectionObserver(
+      (entradas) => {
+        entradas.forEach((entrada) => {
+          if (entrada.isIntersecting) {
+            entrada.target.classList.add("visivel");
+            observador.unobserve(entrada.target);
+          }
+        });
+      },
+      {
+        threshold: 0.15
+      }
+    );
+
+    itensReveal.forEach((el) => observador.observe(el));
+  </script>
+</body>
+</html>

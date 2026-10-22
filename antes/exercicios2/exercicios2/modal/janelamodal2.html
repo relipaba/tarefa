@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Desafio 5 - Modal Interativo</title>
+  <style>
+    body { font-family: sans-serif; margin: 30px; }
+
+    #fundoModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    #caixaModal {
+      position: relative;
+      background: white;
+      width: 300px;
+      margin: 15% auto;
+      padding: 20px;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    /* Desafio 2: Botão fechar em X no topo direito */
+    .fechar-x {
+      position: absolute;
+      top: 8px; right: 12px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    button { padding: 8px 14px; font-size: 15px; cursor: pointer; margin-right: 5px; }
+  </style>
+</head>
+<body>
+
+  <h2>Exemplo Modal com Desafios</h2>
+
+  <!-- Botões com textos diferentes -->
+  <button onclick="abrir('Termos de Uso', 'Ao continuar você aceita nossos termos de serviço.')">Termos de Uso</button>
+  <button onclick="abrir('Privacidade', 'Seus dados de navegação são totalmente seguros.')">Privacidade</button>
+
+  <!-- Fechar ao clicar no botão ou X dentro da janela modal -->
+  <div id="fundoModal">
+    <div id="caixaModal">
+      <span class="fechar-x" onclick="fechar()">✕</span>
+      <h3 id="tituloModal">Esse título será substituído</h3>
+      <p id="textoModal">Esse texto informativo será substituído.</p>
+      <button onclick="fechar()">Entendi</button>
+    </div>
+  </div>
+
+  <script>
+    // Passagem de parâmetros de texto
+    function abrir(titulo, mensagem) {
+      document.getElementById("tituloModal").innerText = titulo;
+      document.getElementById("textoModal").innerText = mensagem;
+      document.getElementById("fundoModal").style.display = "block";
+    }
+
+    function fechar() {
+      document.getElementById("fundoModal").style.display = "none";
+    }
+
+  </script>
+
+</body>
+</html>

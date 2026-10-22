@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Desafio 4 - Carrossel com Controles</title>
+  <style>
+    body { font-family: sans-serif; margin: 30px; }
+    img { width: 300px; height: 180px; object-fit: cover; display: block; margin-bottom: 8px; border-radius: 4px; }
+    button { padding: 8px 14px; font-size: 15px; }
+    #legenda { font-style: italic; color: #444; }
+  </style>
+</head>
+<body>
+
+  <h2>Carrossel com Limites</h2>
+
+  <img id="foto" src="https://picsum.photos/id/10/300/180" alt="Foto">
+  
+  <!-- Desafio 2: Legenda dinâmica -->
+  <p id="legenda">Paisagem 1: Floresta e Montanha</p>
+  
+  <!-- Desafio 1: Contador de páginas -->
+  <p id="indicador">Imagem 1 de 3</p>
+
+  <button id="btnVoltar" onclick="mudar(-1)" disabled>Anterior</button>
+  <button id="btnAvancar" onclick="mudar(1)">Próximo</button>
+
+  <script>
+    let fotos = [
+      "https://picsum.photos/id/10/300/180",
+      "https://picsum.photos/id/20/300/180",
+      "https://picsum.photos/id/30/300/180"
+    ];
+
+    let legendas = [
+      "Paisagem 1: Floresta e Montanha",
+      "Paisagem 2: Caderno e Café",
+      "Paisagem 3: Copas de Árvores"
+    ];
+
+    let indice = 0;
+
+    function mudar(direcao) {
+      indice = indice + direcao;
+
+      // Atualiza imagem e texto
+      document.getElementById("foto").src = fotos[indice];
+      document.getElementById("legenda").innerText = legendas[indice];
+
+      // Desafio 1: Atualiza página atual (indice + 1)
+      document.getElementById("indicador").innerText = "Imagem " + (indice + 1) + " de " + fotos.length;
+
+      // Desafio 3: Desabilita botões nos limites (0 e última)
+      document.getElementById("btnVoltar").disabled = (indice === 0);
+      document.getElementById("btnAvancar").disabled = (indice === fotos.length - 1);
+    }
+  </script>
+
+</body>
+</html>
