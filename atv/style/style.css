@@ -1,0 +1,135 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+section, article, aside, .header-top, .header-low {
+    padding: 2rem;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem;
+    width: 100vw;
+    height: 100vh;
+    background-color: beige;
+
+    .wrap {
+        background-color: aqua;
+        width: 70rem;
+    }
+}
+
+header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .header-top {
+        display: flex;
+        background-color: blue;
+        justify-content: space-between;
+
+        .perfil {
+            background-color: red;
+            border-radius: 100%;
+            height: 3rem;
+            width: 3rem;
+        }
+    }
+
+    .header-low {
+        background-color: brown;
+        padding: 1rem;
+
+        .abas-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0.1rem;
+
+            button {
+                padding: 0.5rem;
+            }
+        }
+
+        .conteudo {
+            padding: 1rem;
+            display: none;
+
+            h3 {
+                padding-bottom: 1rem;
+            }
+        }
+    }
+}
+
+.grid-normal {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-bigger-center {
+    display: grid;
+    grid-template-columns: 1fr, 2fr, 1fr;
+}
+
+.grid-merge {
+    display: grid;
+    width: 100%;
+    margin: 0 auto;
+    gap: 1rem;
+    /* Definimos as larguras das 2 colunas */
+    grid-template-columns: 1fr 1fr;
+    /* Desenhamos as 3 linhas e onde cada elemento se posiciona */
+    grid-template-areas:
+        "topo     topo"
+        "menu     conteudo";
+}
+
+.cabeca {
+    grid-area: topo;
+}
+
+.principal {
+    grid-area: menu;
+    background-color: cadetblue;
+}
+
+.aside {
+    grid-area: conteudo;
+    background-color: yellowgreen;
+}
+
+.banner {
+    background-image: url("../img/banner.jpg");
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 30rem;
+    background-color: red;
+}
+
+/*Trocar Tema*/
+body.escuro {
+    background-color: black;
+    color: white;
+}
+
+button {
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: #f3f4f6;
+    color: #111827;
+    transition: all 0.3s ease;
+}
+
+body.escuro button {
+    background-color: #27272a;
+    color: #f9fafb;
+    border-color: #3f3f46;
+}
+
+/*Trocar Cor*/

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style/style.css">
+</head>
+
+<body>
+    <div class="wrap">
+        <header>
+            <div class="header-top">
+                <h1>Angry birds</h1>
+                <div class="perfil">perfil</div>
+            </div>
+            <div class="header-low">
+                <div class="abas-grid">
+                    <button onclick="mostrarAba(1)">Links</button>
+                    <button onclick="mostrarAba(2)">Tema</button>
+                    <button onclick="mostrarAba(3)">Cor</button>
+                    <button onclick="mostrarAba(4)">Contato</button>
+                    <button onclick="mostrarAba(5)">Sobre</button>
+                    <button onclick="mostrarAba(6)">FAQ</button>
+                </div>
+                <nav>
+                    <div id="aba1" class="conteudo">
+                        <h3>Links</h3>
+                        <ul>
+                            <div class="grid-normal">
+                                <li>
+                                    <a href="">link</a>
+                                </li>
+                                <li>
+                                    <a href="">link</a>
+                                </li>
+                                <li>
+                                    <a href="">link</a>
+                                </li>
+                            </div>
+                        </ul>
+                    </div>
+
+                    <div id="aba2" class="conteudo">
+                        <h3>Tema</h3>
+                        <button id="btnTema" onclick="mudarTema()">Tema</button>
+                    </div>
+
+                    <div id="aba3" class="conteudo">
+                        <h3>Cores</h3>
+                        <button onclick="" mudarCor('#EF2E38')">Vermelho</button>
+                        <button onclick="mudarCor('#E9E972')">Amarelo</button>
+                        <button onclick="mudarCor('#8FE13D')">Verde</button>
+                    </div>
+
+                    <div id="aba4" class="conteudo">
+                        <h3>Fale Conosco</h3>
+                        <p>Envie um e-mail para: badpiggies@marbles.com</p>
+                    </div>
+
+                    <div id="aba5" class="conteudo">
+                        <h3>Sobre</h3>
+                        <p>Somos fundadores da franquia Angry Birds</p>
+                    </div>
+
+                    <div id="aba6" class="conteudo">
+                        <h3>FAQ</h3>
+                        <p></p>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <div class="grid-merge">
+            <section class="banner cabeca"></section>
+            <article class="principal">
+                <h2>Angry</h2>
+            </article>
+            <aside class="aside">
+                <h2>Birds</h2>
+            </aside>
+        </div>
+        <div class="grid-normal">
+            <img src="img/1.webp" alt="">
+            <img src="img/2.webp" alt="">
+            <img src="img/1.webp" alt="">
+        </div>
+        <div class="grid-bigger-center">
+            <img src="img/3.webp" alt="">
+            <img src="img/4.webp" alt="">
+            <img src="img/5.webp" alt="">
+        </div>
+    </div>
+
+    <script src="./js/script.js">
+
+    </script>
+</body>
+
+</html>
