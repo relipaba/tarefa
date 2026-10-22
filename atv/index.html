@@ -4,16 +4,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Angry birds</title>
     <link rel="stylesheet" href="./style/style.css">
+    <style>
+        .gif {
+            display: flex;
+            justify-self: center;
+        }
+    </style>
 </head>
 
 <body>
+    <div class="cadastro">
+        <form action="" class="form">
+            <div class="form-box">
+                <div class="form-cabeca">
+                    <h2>Cadastro</h2>
+                    <button onclick="mostrarCadastro()">X</button>
+                </div>
+                <br>
+                <div>
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="name" id="name">
+                </div>
+
+                <br>
+                <div>
+                    <label for="password">Senha:</label>
+                    <input type="text" id="password" name="password" id="password">
+                </div>
+
+                <br>
+                <div>
+                    <label for="passwordCheck">Confirma Senha:</label>
+                    <input type="password" id="passwordCheck" name="passwordCheck" id="passwordCheck">
+                </div>
+                <br>
+                <button id="cadastroBtn" type="button">Confirmar</button>
+            </div>
+
+        </form>
+    </div>
+    <div class="status">
+        <h1>Tabela de caracteristicas</h1>
+    </div>
     <div class="wrap">
         <header>
             <div class="header-top">
                 <h1>Angry birds</h1>
-                <div class="perfil">perfil</div>
+                <div class="perfil">
+                    <button href="" class="perfil" onclick="mostrarCadastro()"><img src="./img/user.png" alt=""
+                            class="perfil"></button>
+                    <div id="userName"></div>
+                </div>
             </div>
             <div class="header-low">
                 <div class="abas-grid">
@@ -44,7 +87,7 @@
 
                     <div id="aba2" class="conteudo">
                         <h3>Tema</h3>
-                        <button id="btnTema" onclick="mudarTema()">Tema</button>
+                        <button id="btnTema" onclick="mudarTema()">Tema escuro</button>
                     </div>
 
                     <div id="aba3" class="conteudo">
@@ -71,25 +114,48 @@
                 </nav>
             </div>
         </header>
-        <div class="grid-merge">
-            <section class="banner cabeca"></section>
-            <article class="principal">
-                <h2>Angry</h2>
-            </article>
-            <aside class="aside">
-                <h2>Birds</h2>
-            </aside>
-        </div>
-        <div class="grid-normal">
-            <img src="img/1.webp" alt="" style="width: 5rem;">
-            <img src="img/2.webp" alt="" style="width: 5rem;">
-            <img src="img/3.webp" alt="" style="width: 5rem;">
-        </div>
-        <div class="grid-bigger-center">
-            <img src="img/4.webp" alt="" style="width: 5rem;">
-            <img src="img/5.webp" alt="" style="width: 10rem;">
-            <img src="img/6.webp" alt="" style="width: 5rem;">
-        </div>
+        <main>
+            <div class="grid-merge">
+                <div class="banner cabeca"></div>
+                <article class="principal">
+                    <h2>O que é?</h2>
+                    <br>
+                    <p>Angry Birds (também conhecido como Angry Birds Classic ou simplesmente AB Classic) é um jogo de
+                        quebra-cabeça com estilingue lançado em dezembro de 2009 para iOS e Maemo, sendo posteriormente
+                        lançado para Android em outubro de 2010.</p>
+                    <br>
+                    <p> O jogo foi desenvolvido pela Rovio Entertainment
+                        Corporation e publicado com a ajuda do Clickgamer. Angry Birds deveria ser o último jogo da
+                        Rovio,
+                        mas o sucesso do jogo não apenas salvou a empresa da falência, mas também deu início a toda a
+                        franquia de mídia Angry Birds.</p>
+                </article>
+                <aside class="aside">
+                    <h2>Gameplay</h2>
+                    <br>
+                    <p>No jogo, o jogador lança os Angry Birds com um estilingue em fortalezas de porcos contendo os Bad
+                        Piggies que roubaram seus ovos.</p>
+                    <div class="gif">
+                        <img src="./img/gif1.gif" alt="">
+                    </div>
+                </aside>
+            </div>
+        </main>
+        <section>
+            <div class="grid-normal">
+                <img src="img/1.webp" alt="" style="width: 5rem;">
+                <img src="img/2.webp" alt="" style="width: 7rem;">
+                <img src="img/3.webp" alt="" style="width: 7rem;">
+            </div>
+            <div class="grid-bigger-center">
+                <img src="img/4.webp" alt="" style="width: 7rem;">
+                <img src="img/5.webp" alt="" style="width: 15rem;">
+                <img src="img/6.webp" alt="" style="width: 10rem;">
+            </div>
+        </section>
+        <section class="separar">
+            <button onclick="mostrarStatus()">Informações sobre os passaros</button>
+        </section>
     </div>
 
     <script src="./js/script.js">

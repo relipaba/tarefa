@@ -8,12 +8,14 @@ function esconderTodas() {
     }
 
     function mostrarAba(numero) {
-      // Primeiro esconde todas
-    esconderTodas();
-
-      // Depois exibe apenas a aba correspondente ao número recebido
     let abaEscolhida = document.querySelector("#aba" + numero);
-    abaEscolhida.style.display = "block";
+    if (abaEscolhida.style.display === "block") {
+  abaEscolhida.style.display = "none";
+} else {
+  esconderTodas();
+  abaEscolhida.style.display = "block";
+}
+
     }
 
 function mudarTema() {
@@ -27,3 +29,12 @@ function mudarTema() {
       }
     }
 
+    function mostrarCadastro(){
+      if (document.querySelector(".cadastro").style.display = "none"){
+        document.querySelector(".cadastro").style.display = "block";
+      } else {
+        document.querySelector(".cadastro").style.display = "none";
+      }
+    }
+
+    
