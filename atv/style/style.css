@@ -170,12 +170,12 @@ button {
     transition: all 0.3s ease;
 }
 
-.form {
+.form, .table-wrap{
     display: flex;
     justify-content: center;
     padding-top: 13%;
 
-    .form-box {
+    .form-box, .table-box{
         background-color: rgb(228, 225, 225);
         background-image: url("../img/form.webp");
         width: 50%;
@@ -188,7 +188,17 @@ button {
             padding: 1%;
         }
 
-        .form-cabeca {
+        table{
+            border-collapse: collapse;
+            width: 100%;
+
+            td, th{
+                border: 1px solid black;
+                padding: 0.5rem;
+            }
+        }
+
+        .form-cabeca, .table-cabeca{
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -203,7 +213,20 @@ button {
             }
         }
     }
+}
 
+th{
+    background-color: greenyellow;
+    text-align: left;
+}
+
+
+.table-wrap{
+    padding-top: 11.5% !important;
+}
+.table-box{
+    width: 70% !important;
+    height: 80% !important;
 }
 
 body.escuro button {

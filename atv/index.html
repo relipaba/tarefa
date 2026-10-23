@@ -16,37 +16,117 @@
 
 <body>
     <div class="cadastro">
-        <form action="" class="form">
+        <form action="" class="form" id="formCadastro">
             <div class="form-box">
                 <div class="form-cabeca">
                     <h2>Cadastro</h2>
-                    <button onclick="mostrarCadastro()">X</button>
+                    <button type="button" onclick="mostrarCadastro()">X</button>
                 </div>
                 <br>
                 <div>
                     <label for="nome">Nome:</label>
-                    <input type="text" id="nome" name="name" id="name">
+                    <input type="text" id="nome" name="name">
                 </div>
 
                 <br>
                 <div>
                     <label for="password">Senha:</label>
-                    <input type="text" id="password" name="password" id="password">
+                    <input type="password" id="password" name="password">
                 </div>
 
                 <br>
                 <div>
                     <label for="passwordCheck">Confirma Senha:</label>
-                    <input type="password" id="passwordCheck" name="passwordCheck" id="passwordCheck">
+                    <input type="password" id="passwordCheck" name="passwordCheck">
                 </div>
                 <br>
-                <button id="cadastroBtn" type="button">Confirmar</button>
+                <p id="mensagem"></p>
+                <button id="cadastroBtn" type="button" onclick="cadastro()">Confirmar</button>
             </div>
 
         </form>
     </div>
     <div class="status">
-        <h1>Tabela de caracteristicas</h1>
+        <div class="table-wrap">
+            <div class="table-box">
+                <div class="table-cabeca">
+                    <h2>Status dos passaros</h2>
+                    <button type="button" onclick="mostrarStatus()">X</button>
+                </div>
+                <br>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Red</th>
+                            <th>Chuck</th>
+                            <th>Bomb</th>
+                            <th>Matilda</th>
+                            <th>Os Azuis</th>
+                            <th>Hal</th>
+                            <th>Terence</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Alfreds Futterkiste</td>
+                            <td>Maria Anders</td>
+                            <td>Germany</td>
+                            <td>Alfreds Futterkiste</td>
+                            <td>Maria Anders</td>
+                            <td>Germany</td>
+                            <td>Germany</td>
+                        </tr>
+                        <tr>
+                            <td>Centro comercial Moctezuma</td>
+                            <td>Francisco Chang</td>
+                            <td>Mexico</td>
+                            <td>Alfreds Futterkiste</td>
+                            <td>Maria Anders</td>
+                            <td>Germany</td>
+                            <td>Germany</td>
+                        </tr>
+                        <tr>
+                            <td>Centro comercial Moctezuma</td>
+                            <td>Francisco Chang</td>
+                            <td>Mexico</td>
+                            <td>Alfreds Futterkiste</td>
+                            <td>Maria Anders</td>
+                            <td>Germany</td>
+                            <td>Germany</td>
+                        </tr>
+                        <tr>
+                            <td>Centro comercial Moctezuma</td>
+                            <td>Francisco Chang</td>
+                            <td>Mexico</td>
+                            <td>Alfreds Futterkiste</td>
+                            <td>Maria Anders</td>
+                            <td>Germany</td>
+                            <td>Germany</td>
+                        </tr>
+                        <tr>
+                            <td>Centro comercial Moctezuma</td>
+                            <td>Francisco Chang</td>
+                            <td>Mexico</td>
+                            <td>Alfreds Futterkiste</td>
+                            <td>Maria Anders</td>
+                            <td>Germany</td>
+                            <td>Germany</td>
+                        </tr>
+                        <tr>
+                            <td>Centro comercial Moctezuma</td>
+                            <td>Francisco Chang</td>
+                            <td>Mexico</td>
+                            <td>Alfreds Futterkiste</td>
+                            <td>Maria Anders</td>
+                            <td>Germany</td>
+                            <td>Germany</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
     </div>
     <div class="wrap">
         <header>
@@ -55,7 +135,8 @@
                 <div class="perfil">
                     <button href="" class="perfil" onclick="mostrarCadastro()"><img src="./img/user.png" alt=""
                             class="perfil"></button>
-                    <div id="userName"></div>
+                    <p id="userName">
+                    </p>
                 </div>
             </div>
             <div class="header-low">
