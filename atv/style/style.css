@@ -235,4 +235,74 @@ body.escuro button {
     border-color: #3f3f46;
 }
 
-/*Trocar Cor*/
+.menu-principal {
+    background-color: #333;
+    padding: 1rem;
+}
+
+.menu-principal ul {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    list-style: none;
+}
+
+.menu-principal a {
+    color: white;
+    text-decoration: none;
+}
+
+footer {
+    background-color: rgb(20, 4, 75);
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.card {
+    background-color: white;
+    color: #222;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    text-align: center;
+}
+
+.card img {
+    width: 6rem;
+    height: 6rem;
+    object-fit: contain;
+}
+
+.card h3 {
+    margin: 0.5rem 0;
+}
+
+@media (max-width: 700px) {
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.faq-item {
+    margin-bottom: 0.5rem;
+}
+
+.faq-item button {
+    width: 100%;
+    padding: 0.8rem;
+    text-align: left;
+}
+
+.faq-resposta {
+    display: none;
+    background-color: white;
+    color: #222;
+    padding: 1rem;
+}
