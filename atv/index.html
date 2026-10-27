@@ -6,93 +6,93 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Renato e Enzo</title>
     <link rel="stylesheet" href="./style/style.css">
-        <style>
-            .gif {
-                display: flex;
-                justify-self: center;
-            }
+    <style>
+        .gif {
+            display: flex;
+            justify-self: center;
+        }
 
-            h1 {
-                letter-spacing: 2px;
-            }
+        h1 {
+            letter-spacing: 2px;
+        }
 
-            footer {
-                border-top: 2px solid white;
-            }
+        footer {
+            border-top: 2px solid white;
+        }
 
-            .card h3 {
-                text-transform: uppercase;
-            }
-        </style>
+        .card h3 {
+            text-transform: uppercase;
+        }
+    </style>
 </head>
 
 <body>
     <div class="cadastro">
         <form action="" class="form" id="formCadastro">
             <div class="form-box">
-            <div class="form-cabeca">
-                <h2>Cadastro</h2>
-                <button type="button" onclick="mostrarCadastro()">X</button>
-            </div>
+                <div class="form-cabeca">
+                    <h2>Cadastro</h2>
+                    <button type="button" onclick="mostrarCadastro()">X</button>
+                </div>
 
-            <form id="formCadastro">
-                <fieldset>
-                    <legend>Dados pessoais</legend>
+                <form id="formCadastro">
+                    <fieldset>
+                        <legend>Dados pessoais</legend>
 
-                    <label for="nome">Nome completo:</label>
-                    <input type="text" id="nome" required>
+                        <label for="nome">Nome completo:</label>
+                        <input type="text" id="nome" required>
 
-                   <label for="email">E-mail:</label>
-                   <input type="email" id="email" required>
+                        <label for="email">E-mail:</label>
+                        <input type="email" id="email" required>
 
-                   <label for="idade">Idade:</label>
-                   <input type="number" id="idade" min="1" max="120" required>
+                        <label for="idade">Idade:</label>
+                        <input type="number" id="idade" min="1" max="120" required>
 
-                    <label for="userNameInput">Nome de usuário:</label>
-                    <input type="text" id="userNameInput" required>
+                        <label for="userNameInput">Nome de usuário:</label>
+                        <input type="text" id="userNameInput" required>
 
-                    <p>Gênero:</p>
-                    <label>
-                        <input type="radio" name="genero" value="Feminino" required>
-                        Feminino
-                    </label>
-                   <label>
-                        <input type="radio" name="genero" value="Masculino">
-                        Masculino
-                    </label>
-                    <label>
-                        <input type="radio" name="genero" value="Outro">
-                        Outro
-                    </label>
+                        <p>Gênero:</p>
+                        <label>
+                            <input type="radio" name="genero" value="Feminino" required>
+                            Feminino
+                        </label>
+                        <label>
+                            <input type="radio" name="genero" value="Masculino">
+                            Masculino
+                        </label>
+                        <label>
+                            <input type="radio" name="genero" value="Outro">
+                            Outro
+                        </label>
 
-                    <label for="plataforma">Plataforma favorita:</label>
-                    <select id="plataforma" required>
-                        <option value="">Selecione</option>
-                        <option value="PC">PC</option>
-                        <option value="Android">Android</option>
-                        <option value="iOS">iOS</option>
-                        <option value="Console">Console</option>
-                   </select>
+                        <label for="plataforma">Plataforma favorita:</label>
+                        <select id="plataforma" required>
+                            <option value="">Selecione</option>
+                            <option value="PC">PC</option>
+                            <option value="Android">Android</option>
+                            <option value="iOS">iOS</option>
+                            <option value="Console">Console</option>
+                        </select>
 
-                    <label for="password">Senha:</label>
-                    <input type="password" id="password" required>
+                        <label for="password">Senha:</label>
+                        <input type="password" id="password" required>
 
-                 <label for="passwordCheck">Confirme a senha:</label>
-                    <input type="password" id="passwordCheck" required>
+                        <label for="passwordCheck">Confirme a senha:</label>
+                        <input type="password" id="passwordCheck" required>
 
-                    <label for="observacoes">Por que você gosta de Angry Birds?</label>
-                 <textarea id="observacoes" rows="3"></textarea>
+                        <label for="observacoes">Por que você gosta de Angry Birds?</label>
+                        <textarea id="observacoes" rows="3"></textarea>
 
-                    <p id="mensagem"></p>
+                        <p id="mensagem"></p>
 
-                   <button type="button" onclick="cadastro()">Confirmar cadastro</button>
-                </fieldset>
-            </form>
-            </div>
-                   </div>
-
+                        <button type="button" onclick="cadastro()">Confirmar cadastro</button>
+                    </fieldset>
                 </form>
             </div>
+    </div>
+
+    </form>
+    </div>
     <div class="status">
         <div class="table-wrap">
             <div class="table-box">
@@ -114,7 +114,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+
                         <tr>
                             <td>Alfreds Futterkiste</td>
                             <td>Maria Anders</td>
@@ -179,7 +179,7 @@
     <div class="wrap">
         <header>
             <div class="header-top">
-                <h1>Angry birds</h1>
+                <img src="./img/Angry_Birds_logo.png" alt="" style="width: 20%;">
                 <div class="perfil">
                     <button href="" class="perfil" onclick="mostrarCadastro()"><img src="./img/user.png" alt=""
                             class="perfil"></button>
@@ -196,15 +196,6 @@
                     <button onclick="mostrarAba(5)">Sobre</button>
                     <button onclick="mostrarAba(6)">FAQ</button>
                 </div>
-
-                <nav class="menu-principal">
-                    <ul>
-                        <li><a href="#inicio">Início</a></li>
-                        <li><a href="#galeria">Galeria</a></li>
-                        <li><a href="#passaros">Pássaros</a></li>
-                        <li><a href="#rodape">Contato</a></li>
-                    </ul>
-                </nav>
 
                 <nav>
                     <div id="aba1" class="conteudo">
@@ -274,7 +265,7 @@
                                 3. Qual o seu emil?
                             </button>
                             <p class="faq-resposta">
-                               Abra a aba <strong>"Contato"</strong>.✌️🫩🥀
+                                Abra a aba <strong>"Contato"</strong>.✌️🫩🥀
                             </p>
                         </div>
 
@@ -331,34 +322,35 @@
         </section>
 
         <section id="cards">
-                <h2>Conheça os pássaros</h2>
+            <h2>Conheça os pássaros</h2>
 
-                <div class="cards-grid">
-                    <article class="card">
-                        <img src="./img/1.webp" alt="Red">
-                        <h3>Red</h3>
-                        <p>O pássaro vermelho, conhecido por sua determinação, liderança e temperamento explosivo.</p>
-                    </article>
+            <div class="cards-grid">
+                <article class="card">
+                    <img src="./img/1.webp" alt="Red">
+                    <h3>Red</h3>
+                    <p>O pássaro vermelho, conhecido por sua determinação, liderança e temperamento explosivo.</p>
+                </article>
 
-                    <article class="card">
-                        <img src="./img/2.webp" alt="Chuck">
-                        <h3>The Blues</h3>
-                        <p>Os pássaros azuis triplos, conhecidos por sua brincadeira, agilidade e habilidade de se dividirem em três no ar.</p>
-                    </article>
+                <article class="card">
+                    <img src="./img/2.webp" alt="Chuck">
+                    <h3>The Blues</h3>
+                    <p>Os pássaros azuis triplos, conhecidos por sua brincadeira, agilidade e habilidade de se dividirem
+                        em três no ar.</p>
+                </article>
 
-                    <article class="card">
-                        <img src="./img/3.webp" alt="Bomb">
-                        <h3>Chuck</h3>
-                        <p>O pássaro amarelo, conhecido por sua velocidade incrível e energia hiperativa.</p>
-                    </article>
+                <article class="card">
+                    <img src="./img/3.webp" alt="Bomb">
+                    <h3>Chuck</h3>
+                    <p>O pássaro amarelo, conhecido por sua velocidade incrível e energia hiperativa.</p>
+                </article>
 
-                    <article class="card">
-                        <img src="./img/4.webp" alt="Matilda">
-                        <h3>Bomb</h3>
-                        <p>O pássaro preto, conhecido por sua força bruta e capacidade de explodir como uma bomba.</p>
-                    </article>
-    </div>
-</section>
+                <article class="card">
+                    <img src="./img/4.webp" alt="Matilda">
+                    <h3>Bomb</h3>
+                    <p>O pássaro preto, conhecido por sua força bruta e capacidade de explodir como uma bomba.</p>
+                </article>
+            </div>
+        </section>
 
         <section class="separar">
             <button onclick="mostrarStatus()">Informações sobre os passaros</button>
